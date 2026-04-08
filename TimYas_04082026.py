@@ -8,31 +8,21 @@ from pathlib import Path
 # SETTINGS
 # =========================================================
 
-BOX_WIDTH_IN = 5.0
-BOX_HEIGHT_IN = 6.0
-MM_PER_IN = 25.4
+SAFE_BASE = [-3626, 25307, 0, 0, -64000, -407]   # replace with your real safe in-air pose
 
-BOX_WIDTH_MM = BOX_WIDTH_IN * MM_PER_IN     # 127.0 mm
-BOX_HEIGHT_MM = BOX_HEIGHT_IN * MM_PER_IN   # 152.4 mm
+# Make the drawing MUCH bigger here
+PULSE_WIDTH = 12000
+PULSE_HEIGHT = 12000
 
-DEFAULT_POINTS = 18
-JOB_NAME = "XYTRACE"
-JOB_FILE = "XYTRACE.JBI"
+# More points = smoother tracing
+DEFAULT_POINTS = 20
 
-USER_FRAME_NO = 1
-TOOL_NO = 0
+JOB_NAME = "BIGSLOW"
+JOB_FILE = "BIGSLOW.JBI"
 
-# Keep this above the surface if your UF origin is on the table/sheet.
-Z_HEIGHT_MM = 30.0
-
-# Orientation: keep constant for now
-RX = 180.0
-RY = 0.0
-RZ = 0.0
-
-# Top-left origin inside the box in the UF plane
-X_OFFSET_MM = 0.0
-Y_OFFSET_MM = 0.0
+# Much slower motion
+MOVEJ_SPEED = 2.00
+MOVL_SPEED = 20.0
 
 
 # =========================================================
@@ -148,10 +138,10 @@ def choose_trace_mask(img):
 
 
 # =========================================================
-# SAMPLE POINTS BY DISTANCE
+# CONTOUR SAMPLING BY DISTANCE
 # =========================================================
 
-def sample_contour_points_by_distance(mask, num_points=18):
+def sample_contour_points_by_distance(mask, num_points=20):
     inv = cv2.bitwise_not(mask)
     contours, _ = cv2.findContours(inv, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
@@ -213,19 +203,10 @@ def save_labeled_point_image(mask, sampled_points, output_path="sampled_points_l
 
 
 # =========================================================
-# IMAGE POINTS -> XY USER FRAME POINTS
+# IMAGE -> PULSE MAPPING
 # =========================================================
 
-def image_points_to_xy_mm(sampled_points,
-                          box_width_mm=127.0,
-                          box_height_mm=152.4,
-                          x_offset_mm=0.0,
-                          y_offset_mm=0.0,
-                          z_height_mm=30.0):
-    """
-    Scale sampled image points to fit inside a box in the USER FRAME XY plane.
-    Keeps aspect ratio.
-    """
+def image_points_to_pulses(sampled_points, safe_base, pulse_width=12000, pulse_height=12000):
     pts = sampled_points.astype(np.float32)
 
     min_x = np.min(pts[:, 0])
@@ -233,94 +214,81 @@ def image_points_to_xy_mm(sampled_points,
     min_y = np.min(pts[:, 1])
     max_y = np.max(pts[:, 1])
 
-    src_w = max(max_x - min_x, 1.0)
-    src_h = max(max_y - min_y, 1.0)
+    width = max(max_x - min_x, 1.0)
+    height = max(max_y - min_y, 1.0)
 
-    scale = min(box_width_mm / src_w, box_height_mm / src_h)
+    j1, j2, j3, j4, j5, j6 = safe_base
 
-    scaled_w = src_w * scale
-    scaled_h = src_h * scale
-
-    # center inside the 5x6 box
-    x_margin = (box_width_mm - scaled_w) / 2.0
-    y_margin = (box_height_mm - scaled_h) / 2.0
-
-    xy_points = []
     mapping = []
+    pulse_points = []
 
     for i, (x, y) in enumerate(pts):
-        nx = (x - min_x) * scale
-        ny = (y - min_y) * scale
+        nx = (x - min_x) / width
+        ny = (y - min_y) / height
 
-        # image y goes downward, so flip if you want a more natural XY plane
-        x_mm = x_offset_mm + x_margin + nx
-        y_mm = y_offset_mm + (box_height_mm - (y_margin + ny))
+        dx = int(nx * pulse_width)
+        dy = int(ny * pulse_height)
 
-        point = [x_mm, y_mm, z_height_mm, RX, RY, RZ]
-        xy_points.append(point)
+        # Keep j3-j6 fixed to help keep the motion in roughly the same floating plane
+        pulse = [j1 + dx, j2 + dy, j3, j4, j5, j6]
+        pulse_points.append(pulse)
 
         mapping.append({
             "index": i,
             "image_x": float(x),
             "image_y": float(y),
-            "x_mm": x_mm,
-            "y_mm": y_mm,
-            "z_mm": z_height_mm,
-            "rx": RX,
-            "ry": RY,
-            "rz": RZ,
+            "norm_x": float(nx),
+            "norm_y": float(ny),
+            "pulse": pulse,
         })
 
-    return xy_points, mapping, scale
+    return pulse_points, mapping
 
 
-def save_point_mapping(mapping, output_path="point_mapping_xy.txt"):
+def save_point_mapping(mapping, output_path="point_mapping.txt"):
     with open(output_path, "w", encoding="utf-8") as f:
-        f.write("Point Mapping (Image -> USER Frame XY mm)\n")
+        f.write("Point Mapping\n")
         f.write("=" * 72 + "\n\n")
 
         for item in mapping:
             f.write(f"Point {item['index']}\n")
-            f.write(f"  Image Point : ({item['image_x']:.2f}, {item['image_y']:.2f})\n")
+            f.write(f"  Image Point      : ({item['image_x']:.2f}, {item['image_y']:.2f})\n")
+            f.write(f"  Normalized Point : ({item['norm_x']:.4f}, {item['norm_y']:.4f})\n")
             f.write(
-                f"  XY Point    : ({item['x_mm']:.3f}, {item['y_mm']:.3f}, {item['z_mm']:.3f}, "
-                f"{item['rx']:.4f}, {item['ry']:.4f}, {item['rz']:.4f})\n\n"
+                f"  Pulse Point      : "
+                f"({item['pulse'][0]}, {item['pulse'][1]}, {item['pulse'][2]}, "
+                f"{item['pulse'][3]}, {item['pulse'][4]}, {item['pulse'][5]})\n\n"
             )
 
     print(f"Saved point mapping: {output_path}")
 
 
 # =========================================================
-# JBI WRITER - USER / RECTAN
+# JBI WRITER
 # =========================================================
 
-def write_jbi_user_job(points, filename=JOB_FILE, job_name=JOB_NAME,
-                       user_frame_no=1, tool_no=0):
+def write_jbi_pulse_job(points, filename=JOB_FILE, job_name=JOB_NAME):
     lines = []
     lines.append("/JOB")
     lines.append(f"//NAME {job_name}")
     lines.append("//POS")
-    lines.append(f"///NPOS 0,0,0,{len(points)},0,0")
-    lines.append(f"///USER {user_frame_no}")
-    lines.append(f"///TOOL {tool_no}")
-    lines.append("///POSTYPE USER")
-    lines.append("///RECTAN")
-    lines.append("///RCONF 0,0,0,0,0,0,0,0")
+    lines.append(f"///NPOS {len(points)},0,0,0,0,0")
+    lines.append("///TOOL 0")
+    lines.append("///POSTYPE PULSE")
+    lines.append("///PULSE")
 
     for i, p in enumerate(points):
-        lines.append(
-            f"P{i:03d}={p[0]:.3f},{p[1]:.3f},{p[2]:.3f},{p[3]:.4f},{p[4]:.4f},{p[5]:.4f}"
-        )
+        lines.append(f"C{i:05d}={p[0]},{p[1]},{p[2]},{p[3]},{p[4]},{p[5]}")
 
     lines.append("//INST")
     lines.append("///DATE 2026/04/08 12:00")
     lines.append("///ATTR SC,RW")
     lines.append("///GROUP1 RB1")
     lines.append("NOP")
-    lines.append("MOVJ P000 VJ=5.00")
+    lines.append(f"MOVJ C00000 VJ={MOVEJ_SPEED:.2f}")
 
     for i in range(1, len(points)):
-        lines.append(f"MOVL P{i:03d} V=60.0")
+        lines.append(f"MOVL C{i:05d} V={MOVL_SPEED:.1f}")
 
     lines.append("END")
 
@@ -336,7 +304,7 @@ def write_jbi_user_job(points, filename=JOB_FILE, job_name=JOB_NAME,
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python curve_trace_to_yaskawa_xy.py <image_path> [num_points]")
+        print("Usage: python Tim_to_yaska_bigslow.py <image_path> [num_points]")
         sys.exit(1)
 
     image_path = Path(sys.argv[1])
@@ -351,32 +319,27 @@ def main():
 
     save_labeled_point_image(chosen_mask, sampled_points)
 
-    xy_points, mapping, scale = image_points_to_xy_mm(
+    pulse_points, mapping = image_points_to_pulses(
         sampled_points,
-        box_width_mm=BOX_WIDTH_MM,
-        box_height_mm=BOX_HEIGHT_MM,
-        x_offset_mm=X_OFFSET_MM,
-        y_offset_mm=Y_OFFSET_MM,
-        z_height_mm=Z_HEIGHT_MM,
+        safe_base=SAFE_BASE,
+        pulse_width=PULSE_WIDTH,
+        pulse_height=PULSE_HEIGHT,
     )
 
     save_point_mapping(mapping)
-    write_jbi_user_job(
-        xy_points,
-        filename=JOB_FILE,
-        job_name=JOB_NAME,
-        user_frame_no=USER_FRAME_NO,
-        tool_no=TOOL_NO,
-    )
+    write_jbi_pulse_job(pulse_points, filename=JOB_FILE, job_name=JOB_NAME)
 
     print("\nDone.")
-    print(f"Scale used: {scale:.4f} mm/pixel")
-    print(f"Bounding box target: {BOX_WIDTH_MM:.1f} mm x {BOX_HEIGHT_MM:.1f} mm")
     print("Saved:")
     print("  - chosen_mask.png")
     print("  - sampled_points_labeled.png")
-    print("  - point_mapping_xy.txt")
+    print("  - point_mapping.txt")
     print(f"  - {JOB_FILE}")
+    print("\nCurrent settings:")
+    print(f"  PULSE_WIDTH  = {PULSE_WIDTH}")
+    print(f"  PULSE_HEIGHT = {PULSE_HEIGHT}")
+    print(f"  MOVEJ_SPEED  = {MOVEJ_SPEED}")
+    print(f"  MOVL_SPEED   = {MOVL_SPEED}")
 
 
 if __name__ == "__main__":

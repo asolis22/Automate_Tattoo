@@ -1,0 +1,108 @@
+Point Mapping
+========================================================================
+
+Point 0
+  Image Point      : (107.00, 31.00)
+  Normalized Point : (0.4919, 0.0000)
+  Pulse Point      : (2276, 25307, 0, 0, -64000, -407)
+
+Point 1
+  Image Point      : (93.56, 54.44)
+  Normalized Point : (0.4147, 0.1465)
+  Pulse Point      : (1349, 27065, 0, 0, -64000, -407)
+
+Point 2
+  Image Point      : (80.00, 77.84)
+  Normalized Point : (0.3368, 0.2927)
+  Pulse Point      : (415, 28819, 0, 0, -64000, -407)
+
+Point 3
+  Image Point      : (66.67, 101.33)
+  Normalized Point : (0.2602, 0.4395)
+  Pulse Point      : (-504, 30581, 0, 0, -64000, -407)
+
+Point 4
+  Image Point      : (53.00, 124.68)
+  Normalized Point : (0.1816, 0.5855)
+  Pulse Point      : (-1447, 32332, 0, 0, -64000, -407)
+
+Point 5
+  Image Point      : (39.79, 148.21)
+  Normalized Point : (0.1057, 0.7326)
+  Pulse Point      : (-2358, 34097, 0, 0, -64000, -407)
+
+Point 6
+  Image Point      : (26.00, 171.51)
+  Normalized Point : (0.0265, 0.8782)
+  Pulse Point      : (-3308, 35845, 0, 0, -64000, -407)
+
+Point 7
+  Image Point      : (21.38, 191.00)
+  Normalized Point : (0.0000, 1.0000)
+  Pulse Point      : (-3626, 37307, 0, 0, -64000, -407)
+
+Point 8
+  Image Point      : (50.39, 191.00)
+  Normalized Point : (0.1667, 1.0000)
+  Pulse Point      : (-1627, 37307, 0, 0, -64000, -407)
+
+Point 9
+  Image Point      : (79.40, 191.00)
+  Normalized Point : (0.3333, 1.0000)
+  Pulse Point      : (373, 37307, 0, 0, -64000, -407)
+
+Point 10
+  Image Point      : (108.41, 191.00)
+  Normalized Point : (0.5000, 1.0000)
+  Pulse Point      : (2373, 37307, 0, 0, -64000, -407)
+
+Point 11
+  Image Point      : (137.42, 191.00)
+  Normalized Point : (0.6667, 1.0000)
+  Pulse Point      : (4373, 37307, 0, 0, -64000, -407)
+
+Point 12
+  Image Point      : (166.44, 191.00)
+  Normalized Point : (0.8333, 1.0000)
+  Pulse Point      : (6373, 37307, 0, 0, -64000, -407)
+
+Point 13
+  Image Point      : (195.45, 191.00)
+  Normalized Point : (1.0000, 1.0000)
+  Pulse Point      : (8374, 37307, 0, 0, -64000, -407)
+
+Point 14
+  Image Point      : (188.66, 170.66)
+  Normalized Point : (0.9610, 0.8729)
+  Pulse Point      : (7905, 35781, 0, 0, -64000, -407)
+
+Point 15
+  Image Point      : (175.00, 147.30)
+  Normalized Point : (0.8825, 0.7269)
+  Pulse Point      : (6964, 34029, 0, 0, -64000, -407)
+
+Point 16
+  Image Point      : (161.06, 124.06)
+  Normalized Point : (0.8025, 0.5816)
+  Pulse Point      : (6003, 32286, 0, 0, -64000, -407)
+
+Point 17
+  Image Point      : (148.00, 100.46)
+  Normalized Point : (0.7274, 0.4342)
+  Pulse Point      : (5103, 30516, 0, 0, -64000, -407)
+
+Point 18
+  Image Point      : (134.18, 77.18)
+  Normalized Point : (0.6480, 0.2886)
+  Pulse Point      : (4150, 28770, 0, 0, -64000, -407)
+
+Point 19
+  Image Point      : (120.74, 53.74)
+  Normalized Point : (0.5708, 0.1421)
+  Pulse Point      : (3223, 27012, 0, 0, -64000, -407)
+
+Point 20
+  Image Point      : (107.00, 31.00)
+  Normalized Point : (0.4919, 0.0000)
+  Pulse Point      : (2276, 25307, 0, 0, -64000, -407)
+
