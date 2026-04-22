@@ -1,0 +1,117 @@
+Point Mapping (Image -> TAT template pulse area)
+==============================================================================
+
+Global Point 0
+  Contour/Point : (0, 0)
+  Image Point   : (41.00, 0.00)
+  Template UV   : (0.3846, 1.0000)
+  Pulse Point   : (-2161, 58790, -1247, -1129, -34038, -353)
+
+Global Point 1
+  Contour/Point : (0, 1)
+  Image Point   : (26.84, 7.16)
+  Template UV   : (0.2290, 0.9229)
+  Pulse Point   : (-2445, 58630, -1496, -1095, -33938, -237)
+
+Global Point 2
+  Contour/Point : (0, 2)
+  Image Point   : (14.85, 18.15)
+  Template UV   : (0.0973, 0.8047)
+  Pulse Point   : (-2689, 58371, -1892, -1067, -33780, -136)
+
+Global Point 3
+  Contour/Point : (0, 3)
+  Image Point   : (8.00, 32.43)
+  Template UV   : (0.0220, 0.6509)
+  Pulse Point   : (-2833, 58024, -2418, -1053, -33569, -74)
+
+Global Point 4
+  Contour/Point : (0, 4)
+  Image Point   : (6.00, 48.73)
+  Template UV   : (0.0000, 0.4755)
+  Pulse Point   : (-2882, 57620, -3027, -1052, -33325, -50)
+
+Global Point 5
+  Contour/Point : (0, 5)
+  Image Point   : (8.73, 64.73)
+  Template UV   : (0.0300, 0.3034)
+  Pulse Point   : (-2836, 57220, -3630, -1064, -33082, -63)
+
+Global Point 6
+  Contour/Point : (0, 6)
+  Image Point   : (16.59, 78.59)
+  Template UV   : (0.1164, 0.1541)
+  Pulse Point   : (-2687, 56867, -4161, -1090, -32868, -119)
+
+Global Point 7
+  Contour/Point : (0, 7)
+  Image Point   : (29.82, 88.00)
+  Template UV   : (0.2618, 0.0529)
+  Pulse Point   : (-2427, 56622, -4532, -1128, -32716, -220)
+
+Global Point 8
+  Contour/Point : (0, 8)
+  Image Point   : (44.91, 92.91)
+  Template UV   : (0.4276, 0.0000)
+  Pulse Point   : (-2127, 56487, -4736, -1171, -32630, -337)
+
+Global Point 9
+  Contour/Point : (0, 9)
+  Image Point   : (61.59, 92.00)
+  Template UV   : (0.6108, 0.0098)
+  Pulse Point   : (-1792, 56495, -4724, -1216, -32632, -471)
+
+Global Point 10
+  Contour/Point : (0, 10)
+  Image Point   : (75.87, 85.13)
+  Template UV   : (0.7678, 0.0837)
+  Pulse Point   : (-1504, 56651, -4486, -1252, -32725, -588)
+
+Global Point 11
+  Contour/Point : (0, 11)
+  Image Point   : (88.00, 73.62)
+  Template UV   : (0.9011, 0.2076)
+  Pulse Point   : (-1257, 56923, -4071, -1281, -32891, -691)
+
+Global Point 12
+  Contour/Point : (0, 12)
+  Image Point   : (95.00, 59.39)
+  Template UV   : (0.9780, 0.3607)
+  Pulse Point   : (-1112, 57266, -3548, -1294, -33103, -754)
+
+Global Point 13
+  Contour/Point : (0, 13)
+  Image Point   : (97.00, 43.10)
+  Template UV   : (1.0000, 0.5361)
+  Pulse Point   : (-1067, 57664, -2940, -1293, -33350, -778)
+
+Global Point 14
+  Contour/Point : (0, 14)
+  Image Point   : (93.45, 27.45)
+  Template UV   : (0.9609, 0.7046)
+  Pulse Point   : (-1132, 58052, -2348, -1277, -33590, -757)
+
+Global Point 15
+  Contour/Point : (0, 15)
+  Image Point   : (85.58, 13.58)
+  Template UV   : (0.8745, 0.8539)
+  Pulse Point   : (-1284, 58402, -1818, -1251, -33806, -701)
+
+Global Point 16
+  Contour/Point : (0, 16)
+  Image Point   : (72.30, 4.30)
+  Template UV   : (0.7286, 0.9537)
+  Pulse Point   : (-1544, 58646, -1452, -1212, -33955, -600)
+
+Global Point 17
+  Contour/Point : (0, 17)
+  Image Point   : (58.12, 0.00)
+  Template UV   : (0.5728, 1.0000)
+  Pulse Point   : (-1822, 58769, -1271, -1174, -34028, -490)
+
+Global Point 18
+  Contour/Point : (0, 18)
+  Image Point   : (41.00, 0.00)
+  Template UV   : (0.3846, 1.0000)
+  Pulse Point   : (-2161, 58790, -1247, -1129, -34038, -353)
+

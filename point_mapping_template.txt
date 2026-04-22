@@ -1,0 +1,108 @@
+Point Mapping (Image -> TAT template pulse area)
+========================================================================
+
+Point 0
+  Image Point : (303.00, 23.00)
+  Template UV : (0.3891, 1.0000)
+  Pulse Point : (-2153, 58790, -1248, -1130, -34038, -357)
+
+Point 1
+  Image Point : (264.05, 71.95)
+  Template UV : (0.2475, 0.8673)
+  Pulse Point : (-2415, 58500, -1692, -1101, -33859, -248)
+
+Point 2
+  Image Point : (238.88, 130.12)
+  Template UV : (0.1559, 0.7096)
+  Pulse Point : (-2588, 58146, -2230, -1083, -33643, -174)
+
+Point 3
+  Image Point : (219.00, 105.28)
+  Template UV : (0.0836, 0.7770)
+  Pulse Point : (-2715, 58309, -1987, -1064, -33742, -125)
+
+Point 4
+  Image Point : (196.00, 98.62)
+  Template UV : (0.0000, 0.7950)
+  Pulse Point : (-2865, 58359, -1913, -1044, -33771, -65)
+
+Point 5
+  Image Point : (210.00, 161.41)
+  Template UV : (0.0509, 0.6248)
+  Pulse Point : (-2782, 57960, -2513, -1060, -33531, -94)
+
+Point 6
+  Image Point : (207.42, 181.58)
+  Template UV : (0.0415, 0.5701)
+  Pulse Point : (-2802, 57835, -2702, -1060, -33455, -84)
+
+Point 7
+  Image Point : (218.00, 236.72)
+  Template UV : (0.0800, 0.4207)
+  Pulse Point : (-2740, 57486, -3228, -1073, -33243, -105)
+
+Point 8
+  Image Point : (241.00, 293.45)
+  Template UV : (0.1636, 0.2669)
+  Pulse Point : (-2595, 57124, -3774, -1098, -33023, -159)
+
+Point 9
+  Image Point : (270.02, 350.02)
+  Template UV : (0.2692, 0.1135)
+  Pulse Point : (-2411, 56761, -4321, -1128, -32801, -228)
+
+Point 10
+  Image Point : (315.09, 391.91)
+  Template UV : (0.4331, 0.0000)
+  Pulse Point : (-2117, 56486, -4737, -1172, -32630, -341)
+
+Point 11
+  Image Point : (342.51, 364.00)
+  Template UV : (0.5328, 0.0757)
+  Pulse Point : (-1932, 56652, -4486, -1195, -32730, -417)
+
+Point 12
+  Image Point : (400.70, 387.70)
+  Template UV : (0.7444, 0.0114)
+  Pulse Point : (-1549, 56488, -4735, -1249, -32625, -568)
+
+Point 13
+  Image Point : (464.44, 382.56)
+  Template UV : (0.9761, 0.0253)
+  Pulse Point : (-1126, 56501, -4715, -1306, -32628, -737)
+
+Point 14
+  Image Point : (471.00, 320.00)
+  Template UV : (1.0000, 0.1949)
+  Pulse Point : (-1077, 56886, -4127, -1306, -32867, -762)
+
+Point 15
+  Image Point : (447.24, 261.24)
+  Template UV : (0.9136, 0.3542)
+  Pulse Point : (-1229, 57257, -3562, -1278, -33098, -707)
+
+Point 16
+  Image Point : (412.17, 207.17)
+  Template UV : (0.7861, 0.5008)
+  Pulse Point : (-1456, 57604, -3036, -1242, -33313, -621)
+
+Point 17
+  Image Point : (408.00, 145.28)
+  Template UV : (0.7709, 0.6685)
+  Pulse Point : (-1477, 57989, -2450, -1232, -33550, -618)
+
+Point 18
+  Image Point : (401.05, 82.05)
+  Template UV : (0.7456, 0.8399)
+  Pulse Point : (-1517, 58384, -1850, -1220, -33793, -607)
+
+Point 19
+  Image Point : (350.00, 58.65)
+  Template UV : (0.5600, 0.9034)
+  Pulse Point : (-1849, 58549, -1606, -1174, -33893, -476)
+
+Point 20
+  Image Point : (303.00, 23.00)
+  Template UV : (0.3891, 1.0000)
+  Pulse Point : (-2153, 58790, -1248, -1130, -34038, -357)
+
