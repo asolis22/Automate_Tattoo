@@ -1,0 +1,93 @@
+Point Mapping (Image -> TAT template pulse area)
+==============================================================================
+
+Global Point 0
+  Stroke/Point : (0, 0)
+  Image Point  : (34.00, 5.00)
+  Template UV  : (0.3375, 0.9451)
+  Pulse Point  : (-2249, 58669, -1433, -1120, -33963, -317)
+
+Global Point 1
+  Stroke/Point : (0, 1)
+  Image Point  : (44.00, 0.00)
+  Template UV  : (0.4625, 1.0000)
+  Pulse Point  : (-2021, 58782, -1257, -1148, -34034, -410)
+
+Global Point 2
+  Stroke/Point : (0, 2)
+  Image Point  : (59.00, 0.00)
+  Template UV  : (0.6500, 1.0000)
+  Pulse Point  : (-1683, 58761, -1281, -1192, -34024, -546)
+
+Global Point 3
+  Stroke/Point : (0, 3)
+  Image Point  : (63.00, 4.00)
+  Template UV  : (0.7000, 0.9560)
+  Pulse Point  : (-1595, 58655, -1440, -1205, -33960, -580)
+
+Global Point 4
+  Stroke/Point : (0, 4)
+  Image Point  : (67.00, 5.00)
+  Template UV  : (0.7500, 0.9451)
+  Pulse Point  : (-1505, 58624, -1485, -1218, -33941, -615)
+
+Global Point 5
+  Stroke/Point : (1, 0)
+  Image Point  : (80.00, 11.00)
+  Template UV  : (0.9125, 0.8791)
+  Pulse Point  : (-1214, 58456, -1735, -1259, -33840, -730)
+
+Global Point 6
+  Stroke/Point : (1, 1)
+  Image Point  : (87.00, 19.00)
+  Template UV  : (1.0000, 0.7912)
+  Pulse Point  : (-1059, 58246, -2052, -1283, -33711, -789)
+
+Global Point 7
+  Stroke/Point : (2, 0)
+  Image Point  : (7.00, 43.00)
+  Template UV  : (0.0000, 0.5275)
+  Pulse Point  : (-2879, 57741, -2846, -1051, -33397, -52)
+
+Global Point 8
+  Stroke/Point : (2, 1)
+  Image Point  : (7.00, 51.00)
+  Template UV  : (0.0000, 0.4396)
+  Pulse Point  : (-2884, 57537, -3152, -1053, -33275, -48)
+
+Global Point 9
+  Stroke/Point : (3, 0)
+  Image Point  : (46.00, 82.00)
+  Template UV  : (0.4875, 0.0989)
+  Pulse Point  : (-2014, 56709, -4399, -1183, -32765, -386)
+
+Global Point 10
+  Stroke/Point : (3, 1)
+  Image Point  : (55.00, 73.00)
+  Template UV  : (0.6000, 0.1978)
+  Pulse Point  : (-1805, 56927, -4068, -1207, -32897, -472)
+
+Global Point 11
+  Stroke/Point : (4, 0)
+  Image Point  : (74.00, 83.00)
+  Template UV  : (0.8375, 0.0879)
+  Pulse Point  : (-1376, 56655, -4480, -1270, -32726, -639)
+
+Global Point 12
+  Stroke/Point : (4, 1)
+  Image Point  : (85.00, 72.00)
+  Template UV  : (0.9750, 0.2088)
+  Pulse Point  : (-1122, 56919, -4076, -1299, -32888, -744)
+
+Global Point 13
+  Stroke/Point : (5, 0)
+  Image Point  : (44.00, 91.00)
+  Template UV  : (0.4625, 0.0000)
+  Pulse Point  : (-2063, 56484, -4740, -1180, -32628, -363)
+
+Global Point 14
+  Stroke/Point : (5, 1)
+  Image Point  : (53.00, 91.00)
+  Template UV  : (0.5750, 0.0000)
+  Pulse Point  : (-1858, 56475, -4754, -1208, -32620, -444)
+
