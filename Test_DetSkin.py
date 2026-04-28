@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import os
 import json
 from datetime import datetime
 
@@ -19,43 +18,36 @@ OUTPUT_IMAGE       = "detected_fake_skin_result.jpg"
 OUTPUT_MASK        = "detected_fake_skin_mask.jpg"
 OUTPUT_POINTS_JSON = "fake_skin_corners_and_bbox.json"
 OUTPUT_POINTS_TXT  = "fake_skin_corners_and_bbox.txt"
-OUTPUT_JOB         = "SKINCORN.JBI"
-JOB_NAME           = "SKINCORN"
 
-CAMERA_WORKSPACE_FILE = "camera_workspace_pixels.json"
+OUTPUT_JOB = "SkinDetect.JBI"
+JOB_NAME   = "SkinDetect"
 
 COLOR_MODE = "NO_SWAP"
-
-# IMPORTANT:
-# Measure the real physical width of the calibrated camera workspace.
-# This should be the left-to-right physical size of the square the camera sees.
-WORKSPACE_WIDTH_CM = 60.0
-
-# Camera-to-needle physical offset
-CAM_TO_NEEDLE_LEFT_CM = 16.5
-CAM_TO_NEEDLE_DOWN_CM = 38.5
-NEEDLE_TO_SKIN_CM     = 39.5
 
 MOVEJ_SPEED = 0.78
 MOVL_SPEED  = 20.0
 
 # =========================================================
-# ROBOT CALIBRATION POINTS
+# ROBOT CALIBRATION POINTS FROM YOUR TATCALIBRATE.JBI
 # Order: TL, TR, BR, BL
 # =========================================================
 
 ROBOT_WORKSPACE_PULSE = [
-    [-43487, 10808, -30891, 5060, -37212, 17750],   # TL C00001
-    [-24167, 57720,  22702, 2808, -52785, 10258],   # TR C00002
-    [ 23516, 61116,  27250,-1344, -54873,-10642],   # BR C00003
-    [ 42600, 11752, -30041,-3542, -38135,-18280],   # BL C00004
+    [-43487, 10808, -30891, 5060, -37212, 17750],   # TL = C00001
+    [-24167, 57720,  22702, 2808, -52785, 10258],   # TR = C00002
+    [ 23516, 61116,  27250,-1344, -54873,-10642],   # BR = C00003
+    [ 42600, 11752, -30041,-3542, -38135,-18280],   # BL = C00004
 ]
 
+# Camera image is assumed to represent the full robot workspace
+CAMERA_WIDTH  = 1280
+CAMERA_HEIGHT = 720
+
 CAMERA_WORKSPACE_PIXELS = np.array([
-    [0,    0],
-    [1280, 0],
-    [1280, 720],
-    [0,    720],
+    [0,            0],
+    [CAMERA_WIDTH, 0],
+    [CAMERA_WIDTH, CAMERA_HEIGHT],
+    [0,            CAMERA_HEIGHT],
 ], dtype=np.float32)
 
 # =========================================================
@@ -72,8 +64,10 @@ def fix_pi_camera_color(frame):
 
 def improve_color_for_detection(frame_bgr):
     hsv = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2HSV).astype(np.float32)
+
     hsv[:, :, 1] = np.clip(hsv[:, :, 1] * 1.40, 0, 255)
     hsv[:, :, 2] = np.clip(hsv[:, :, 2] * 1.05, 0, 255)
+
     return cv2.cvtColor(hsv.astype(np.uint8), cv2.COLOR_HSV2BGR)
 
 # =========================================================
@@ -85,9 +79,11 @@ def start_picamera():
     import time
 
     picam2 = Picamera2()
+
     config = picam2.create_preview_configuration(
-        main={"format": "RGB888", "size": (1280, 720)}
+        main={"format": "RGB888", "size": (CAMERA_WIDTH, CAMERA_HEIGHT)}
     )
+
     picam2.configure(config)
 
     picam2.set_controls({
@@ -97,6 +93,7 @@ def start_picamera():
 
     picam2.start()
     time.sleep(2)
+
     return picam2
 
 
@@ -122,138 +119,16 @@ def order_points(pts):
     return np.array([tl, tr, br, bl], dtype=np.float32)
 
 # =========================================================
-# CAMERA WORKSPACE CALIBRATION
-# =========================================================
-
-clicked_points = []
-
-
-def mouse_callback(event, x, y, flags, param):
-    global clicked_points
-    if event == cv2.EVENT_LBUTTONDOWN and len(clicked_points) < 4:
-        clicked_points.append([x, y])
-        print(f"Clicked point {len(clicked_points)}: [{x}, {y}]")
-
-
-def calibrate_camera_workspace(picam2):
-    global clicked_points
-    clicked_points = []
-
-    print("\nCAMERA WORKSPACE CALIBRATION")
-    print("Click corners in this order:")
-    print("1. Top Left")
-    print("2. Top Right")
-    print("3. Bottom Right")
-    print("4. Bottom Left")
-    print("Press Q to cancel.\n")
-
-    window_name = "Click Workspace Corners: TL, TR, BR, BL"
-
-    cv2.namedWindow(window_name)
-    cv2.setMouseCallback(window_name, mouse_callback)
-
-    labels = ["TL", "TR", "BR", "BL"]
-
-    while True:
-        frame = get_frame(picam2)
-        preview = frame.copy()
-
-        for i, pt in enumerate(clicked_points):
-            x, y = pt
-            cv2.circle(preview, (x, y), 8, (0, 255, 255), -1)
-            cv2.putText(
-                preview,
-                labels[i],
-                (x + 10, y - 10),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.8,
-                (0, 255, 255),
-                2,
-            )
-
-        cv2.putText(
-            preview,
-            f"Clicked {len(clicked_points)}/4 corners",
-            (20, 35),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.9,
-            (0, 255, 255),
-            2,
-        )
-
-        cv2.imshow(window_name, preview)
-
-        key = cv2.waitKey(1) & 0xFF
-
-        if len(clicked_points) == 4:
-            break
-
-        if key == ord("q"):
-            cv2.destroyWindow(window_name)
-            return None
-
-    cv2.destroyWindow(window_name)
-
-    workspace_pixels = order_points(clicked_points)
-
-    with open(CAMERA_WORKSPACE_FILE, "w") as f:
-        json.dump(
-            {
-                "order": ["TL", "TR", "BR", "BL"],
-                "camera_workspace_pixels": workspace_pixels.astype(int).tolist(),
-            },
-            f,
-            indent=4,
-        )
-
-    print(f"\nSaved workspace calibration to {CAMERA_WORKSPACE_FILE}")
-    print(workspace_pixels)
-
-    return workspace_pixels
-
-
-def load_camera_workspace_pixels():
-    if os.path.exists(CAMERA_WORKSPACE_FILE):
-        with open(CAMERA_WORKSPACE_FILE, "r") as f:
-            data = json.load(f)
-
-        pts = np.array(data["camera_workspace_pixels"], dtype=np.float32)
-        pts = order_points(pts)
-
-        print(f"Loaded saved camera workspace from {CAMERA_WORKSPACE_FILE}:")
-        print(pts)
-
-        return pts
-
-    print("No saved camera workspace found. Using full frame fallback.")
-    return CAMERA_WORKSPACE_PIXELS.copy()
-
-# =========================================================
-# WORKSPACE MASK
-# =========================================================
-
-def keep_only_workspace(frame, camera_workspace_pixels):
-    mask = np.zeros(frame.shape[:2], dtype=np.uint8)
-    pts = camera_workspace_pixels.astype(np.int32)
-    cv2.fillPoly(mask, [pts], 255)
-
-    workspace_only = cv2.bitwise_and(frame, frame, mask=mask)
-    return workspace_only, mask
-
-# =========================================================
 # FAKE SKIN DETECTION
 # =========================================================
 
-def detect_fake_skin_rotated_box(frame, camera_workspace_pixels):
+def detect_fake_skin_rotated_box(frame):
     output = frame.copy()
 
-    workspace_frame, workspace_mask = keep_only_workspace(frame, camera_workspace_pixels)
-
-    detection_frame = improve_color_for_detection(workspace_frame)
+    detection_frame = improve_color_for_detection(frame)
     hsv = cv2.cvtColor(detection_frame, cv2.COLOR_BGR2HSV)
 
     mask = cv2.inRange(hsv, LOWER_SKIN, UPPER_SKIN)
-    mask = cv2.bitwise_and(mask, mask, mask=workspace_mask)
 
     kernel = np.ones((KERNEL_SIZE, KERNEL_SIZE), np.uint8)
 
@@ -287,6 +162,7 @@ def detect_fake_skin_rotated_box(frame, camera_workspace_pixels):
         x, y = int(pt[0]), int(pt[1])
 
         cv2.circle(output, (x, y), 8, (0, 255, 255), -1)
+
         cv2.putText(
             output,
             f"{label}: ({x},{y})",
@@ -325,7 +201,7 @@ def detect_fake_skin_rotated_box(frame, camera_workspace_pixels):
 # CAMERA PIXEL TO NORMALIZED WORKSPACE
 # =========================================================
 
-def get_camera_to_normalized_workspace_matrix(camera_workspace_pixels):
+def get_camera_to_normalized_workspace_matrix():
     normalized_workspace = np.array([
         [0.0, 0.0],
         [1.0, 0.0],
@@ -334,7 +210,7 @@ def get_camera_to_normalized_workspace_matrix(camera_workspace_pixels):
     ], dtype=np.float32)
 
     return cv2.getPerspectiveTransform(
-        camera_workspace_pixels.astype(np.float32),
+        CAMERA_WORKSPACE_PIXELS,
         normalized_workspace,
     )
 
@@ -346,35 +222,11 @@ def pixel_to_normalized(pixel_point, H):
     u = float(dst[0][0][0])
     v = float(dst[0][0][1])
 
+    # Clamp so the robot never goes outside the taught workspace
+    u = max(0.0, min(1.0, u))
+    v = max(0.0, min(1.0, v))
+
     return u, v
-
-
-def apply_camera_to_needle_offset(u, v):
-    """
-    The camera sees the point, but the tattoo needle is physically offset.
-
-    Needle is 16.5 cm LEFT of camera.
-    In normalized workspace:
-        left means u decreases.
-    So to place the needle on the detected camera point,
-    we shift the robot target in the opposite direction.
-
-    Because the needle is LEFT of the camera, the robot/camera center
-    must move RIGHT so the needle lands on the detected point.
-
-    Therefore:
-        corrected_u = u + offset_fraction
-    """
-
-    offset_u = CAM_TO_NEEDLE_LEFT_CM / WORKSPACE_WIDTH_CM
-
-    corrected_u = u + offset_u
-    corrected_v = v
-
-    corrected_u = max(0.0, min(1.0, corrected_u))
-    corrected_v = max(0.0, min(1.0, corrected_v))
-
-    return corrected_u, corrected_v
 
 # =========================================================
 # NORMALIZED WORKSPACE TO ROBOT PULSE
@@ -404,10 +256,6 @@ def write_jbi_corner_visit(robot_pulse_points, filename=OUTPUT_JOB, job_name=JOB
     if len(robot_pulse_points) != 4:
         raise ValueError(f"Expected 4 points, got {len(robot_pulse_points)}")
 
-    for i, p in enumerate(robot_pulse_points):
-        if len(p) != 6:
-            raise ValueError(f"Point {i} must have 6 pulse values.")
-
     all_points = []
     instructions = []
 
@@ -416,13 +264,16 @@ def write_jbi_corner_visit(robot_pulse_points, filename=OUTPUT_JOB, job_name=JOB
         all_points.append([int(v) for v in p])
         return idx
 
-    tl_idx = add_point(robot_pulse_points[0])
-    instructions.append(f"MOVJ C{tl_idx:05d} VJ={MOVEJ_SPEED:.2f}")
+    # Start at first detected corner
+    first_idx = add_point(robot_pulse_points[0])
+    instructions.append(f"MOVJ C{first_idx:05d} VJ={MOVEJ_SPEED:.2f}")
 
+    # Trace other corners
     for pulse in robot_pulse_points[1:]:
         idx = add_point(pulse)
         instructions.append(f"MOVL C{idx:05d} V={MOVL_SPEED:.1f}")
 
+    # Close rectangle
     close_idx = add_point(robot_pulse_points[0])
     instructions.append(f"MOVL C{close_idx:05d} V={MOVL_SPEED:.1f}")
 
@@ -449,7 +300,7 @@ def write_jbi_corner_visit(robot_pulse_points, filename=OUTPUT_JOB, job_name=JOB
     with open(filename, "w", encoding="utf-8", newline="") as f:
         f.write("\r\n".join(lines) + "\r\n")
 
-    print(f"Saved JBI file: {filename}")
+    print(f"\nSaved JBI file: {filename}")
 
 # =========================================================
 # SAVE RESULTS
@@ -471,6 +322,12 @@ def save_detection_files(detection_info, robot_pulse_points):
         f.write("===========================\n\n")
         f.write(f"Timestamp: {detection_info['timestamp']}\n\n")
 
+        f.write("Bounding Box:\n")
+        f.write(f"  Width px:  {detection_info['bounding_box']['width_px']:.2f}\n")
+        f.write(f"  Height px: {detection_info['bounding_box']['height_px']:.2f}\n")
+        f.write(f"  Angle deg: {detection_info['bounding_box']['angle_deg']:.2f}\n")
+        f.write(f"  Area px:   {detection_info['bounding_box']['area_px']:.2f}\n\n")
+
         f.write("Camera Pixel Corners:\n")
         for name, pt in detection_info["corner_points_px"].items():
             f.write(f"  {name}: {pt}\n")
@@ -486,19 +343,21 @@ def save_detection_files(detection_info, robot_pulse_points):
 # PROCESS FRAME
 # =========================================================
 
-def process_frame(frame, camera_workspace_pixels):
-    annotated, mask, info = detect_fake_skin_rotated_box(frame, camera_workspace_pixels)
+def process_frame(frame):
+    annotated, mask, info = detect_fake_skin_rotated_box(frame)
 
     cv2.imwrite(OUTPUT_IMAGE, annotated)
     cv2.imwrite(OUTPUT_MASK, mask)
 
     if info is None:
-        print("\nNo fake skin detected inside calibrated workspace.")
+        print("\nNo fake skin detected.")
+        print(f"Saved {OUTPUT_IMAGE}")
+        print(f"Saved {OUTPUT_MASK}")
         return
 
-    print("\nDetected fake skin inside calibrated workspace.")
+    print("\nDetected fake skin.")
 
-    H = get_camera_to_normalized_workspace_matrix(camera_workspace_pixels)
+    H = get_camera_to_normalized_workspace_matrix()
 
     robot_pulse_points = []
 
@@ -507,21 +366,13 @@ def process_frame(frame, camera_workspace_pixels):
     for label, pixel_pt in info["corner_points_px"].items():
         u, v = pixel_to_normalized(pixel_pt, H)
 
-        u = max(0.0, min(1.0, u))
-        v = max(0.0, min(1.0, v))
-
-        corrected_u, corrected_v = apply_camera_to_needle_offset(u, v)
-
-        print(f"\n{label}")
-        print(f"  pixel:      {pixel_pt}")
-        print(f"  camera uv:  u={u:.4f}, v={v:.4f}")
-        print(f"  needle uv:  u={corrected_u:.4f}, v={corrected_v:.4f}")
-
-        pulse = bilinear_pulse_from_normalized(corrected_u, corrected_v)
-
+        pulse = bilinear_pulse_from_normalized(u, v)
         robot_pulse_points.append(pulse)
 
-        print(f"  pulse:      {pulse}")
+        print(f"\n{label}")
+        print(f"  pixel: {pixel_pt}")
+        print(f"  uv:    u={u:.4f}, v={v:.4f}")
+        print(f"  pulse: {pulse}")
 
     write_jbi_corner_visit(robot_pulse_points)
     save_detection_files(info, robot_pulse_points)
@@ -538,15 +389,12 @@ def process_frame(frame, camera_workspace_pixels):
 # =========================================================
 
 def main():
-    print("\n=== Fake Skin Detection → Yaskawa Corner JBI ===\n")
+    print("\n=== Fake Skin Detection → SkinDetect.JBI ===\n")
 
     picam2 = start_picamera()
 
-    camera_workspace_pixels = load_camera_workspace_pixels()
-
     print("Controls:")
-    print("  C     = calibrate/click workspace corners")
-    print("  SPACE = capture frame, detect skin, generate JBI")
+    print("  SPACE = capture frame, detect fake skin, generate SkinDetect.JBI")
     print("  Q     = quit")
     print("  1     = RGB_TO_BGR color mode")
     print("  2     = NO_SWAP color mode")
@@ -568,21 +416,21 @@ def main():
             2,
         )
 
-        if camera_workspace_pixels is not None:
-            pts = camera_workspace_pixels.astype(int)
-            cv2.polylines(preview, [pts], True, (255, 0, 255), 3)
+        # Draw camera workspace border
+        pts = CAMERA_WORKSPACE_PIXELS.astype(int)
+        cv2.polylines(preview, [pts], True, (255, 0, 255), 3)
 
-            for label, pt in zip(["TL", "TR", "BR", "BL"], pts):
-                cv2.circle(preview, tuple(pt), 8, (255, 0, 255), -1)
-                cv2.putText(
-                    preview,
-                    label,
-                    (pt[0] + 8, pt[1] - 8),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.7,
-                    (255, 0, 255),
-                    2,
-                )
+        for label, pt in zip(["TL", "TR", "BR", "BL"], pts):
+            cv2.circle(preview, tuple(pt), 8, (255, 0, 255), -1)
+            cv2.putText(
+                preview,
+                label,
+                (pt[0] + 8, pt[1] + 25),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (255, 0, 255),
+                2,
+            )
 
         cv2.imshow("Pi Camera Preview", preview)
 
@@ -600,13 +448,8 @@ def main():
             COLOR_MODE = "BGR_TO_RGB"
             print("COLOR_MODE = BGR_TO_RGB")
 
-        elif key == ord("c"):
-            new_workspace = calibrate_camera_workspace(picam2)
-            if new_workspace is not None:
-                camera_workspace_pixels = new_workspace
-
         elif key == ord(" "):
-            process_frame(frame.copy(), camera_workspace_pixels)
+            process_frame(frame.copy())
 
         elif key == ord("q"):
             break
