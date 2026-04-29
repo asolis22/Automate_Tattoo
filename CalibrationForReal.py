@@ -1,314 +1,244 @@
 import cv2
+import numpy as np
 import json
-from datetime import datetime
+import time
+from picamera2 import Picamera2
 
-# =========================================================
-# SETTINGS
-# =========================================================
+# ==============================
+# CLICK ORDER:
+#
+# P1  P2  P3
+# P4  P5  P6
+# P7  P8  P9
+# ==============================
 
-COLOR_MODE = "NO_SWAP"
-OUTPUT_JSON = "skin_calibration_pulse.json"
+clicked_points = []
+robot_pulse_points = []
 
-ROUNDS = 3
-POINTS_PER_ROUND = 4
-
-# =========================================================
-# CAMERA
-# =========================================================
-
-CAMERA_WIDTH  = 1280
-CAMERA_HEIGHT = 720
-
-# =========================================================
-# COLOR
-# =========================================================
-
-def fix_pi_camera_color(frame):
-    if COLOR_MODE == "RGB_TO_BGR":
-        return cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-    elif COLOR_MODE == "BGR_TO_RGB":
-        return cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    return frame.copy()
-
-# =========================================================
-# CAMERA SETUP
-# =========================================================
-
-def start_picamera():
-    from picamera2 import Picamera2
-    import time
-    picam2 = Picamera2()
-    config = picam2.create_preview_configuration(
-        main={"format": "RGB888",
-              "size": (CAMERA_WIDTH, CAMERA_HEIGHT)}
-    )
-    picam2.configure(config)
-    picam2.set_controls({"AwbEnable": True, "AeEnable": True})
-    picam2.start()
-    time.sleep(2)
-    return picam2
+point_labels = ["P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9"]
 
 
-def get_frame(picam2):
-    raw = picam2.capture_array()
-    return fix_pi_camera_color(raw)
-
-# =========================================================
-# CALIBRATION GLOBALS
-# =========================================================
-
-clicked_point = None
-LABELS = ["TL", "TR", "BR", "BL"]
-
-# =========================================================
-# MOUSE CLICK
-# =========================================================
-
-def mouse_callback(event, x, y, flags, param):
-    global clicked_point
-
-    if event == cv2.EVENT_LBUTTONDOWN:
-        clicked_point = (x, y)
-        print(f"\nCLICKED PIXEL: x={x}, y={y}")
-
-# =========================================================
-# PULSE INPUT
-# =========================================================
-
-def get_pulse_position(label):
-    print("\n=================================================")
-    print(f"ENTER PULSE COORDINATES FOR {label}")
-    print("=================================================")
-    print("Jog the robot needle/tool tip to the SAME physical point.")
-    print("Then enter the PULSE values from the pendant:")
-    print("S, L, U, R, B, T")
-    print()
-
-    pulse_labels = ["S", "L", "U", "R", "B", "T"]
+def enter_pulse_values(label):
+    print("\n=================================")
+    print(f"ENTER PULSE VALUES FOR {label}")
+    print("=================================")
+    print("Type the robot pulse coordinates from the pendant:")
+    print("S, L, U, R, B, T\n")
 
     while True:
-        values = {}
-
         try:
-            for item in pulse_labels:
-                values[item] = int(float(input(f"{item}: ")))
+            s = int(float(input("S: ")))
+            l = int(float(input("L: ")))
+            u = int(float(input("U: ")))
+            r = int(float(input("R: ")))
+            b = int(float(input("B: ")))
+            t = int(float(input("T: ")))
 
-            return values
+            return [s, l, u, r, b, t]
 
         except ValueError:
-            print("\nERROR: Type numbers only. Try this point again.\n")
+            print("\n[ERROR] Please enter numbers only. Try again.\n")
 
-# =========================================================
-# DRAW SAVED POINTS
-# =========================================================
 
-def draw_saved_points(frame, points):
-    for point in points:
-        x = point["camera_pixel"]["x"]
-        y = point["camera_pixel"]["y"]
-        label = point["label"]
+def mouse_callback(event, x, y, flags, param):
+    global clicked_points, robot_pulse_points
 
-        cv2.circle(frame, (x, y), 9, (0, 255, 0), -1)
+    if event == cv2.EVENT_LBUTTONDOWN:
+        if len(clicked_points) < 9:
+            label = point_labels[len(clicked_points)]
 
+            clicked_points.append([x, y])
+            print(f"\n{label} clicked at pixel: ({x}, {y})")
+
+            pulse_values = enter_pulse_values(label)
+            robot_pulse_points.append(pulse_values)
+
+            print(f"[OK] {label} saved:")
+            print(f"  Pixel: ({x}, {y})")
+            print(f"  Pulse: {pulse_values}")
+
+        if len(clicked_points) == 9:
+            print("\nAll 9 points clicked and pulse values entered.")
+            print("Press S to save calibration.")
+
+
+def draw_points(frame):
+    display = frame.copy()
+
+    for i, pt in enumerate(clicked_points):
+        x, y = pt
+
+        cv2.circle(display, (x, y), 8, (0, 255, 0), -1)
         cv2.putText(
-            frame,
-            label,
-            (x + 12, y - 12),
+            display,
+            point_labels[i],
+            (x + 10, y - 10),
             cv2.FONT_HERSHEY_SIMPLEX,
-            0.8,
+            0.7,
             (0, 255, 0),
             2
         )
 
-# =========================================================
-# Z INPUT
-# =========================================================
+    lines = [
+        "9 Point Pulse Calibration",
+        "Click points in order:",
+        "P1 P2 P3",
+        "P4 P5 P6",
+        "P7 P8 P9",
+        "After each click, enter S L U R B T",
+        "S = save | R = reset | Q = quit"
+    ]
 
-def get_specific_z():
-    print("\n=================================================")
-    print("ENTER SPECIFIC Z HEIGHT")
-    print("=================================================")
-    print("This is the Z value you want the later robot code to use.")
-    print("Rx, Ry, and Rz will be ignored for now.")
-    print()
+    y = 30
+    for line in lines:
+        cv2.putText(
+            display,
+            line,
+            (20, y),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.65,
+            (255, 255, 255),
+            2
+        )
+        y += 30
 
-    while True:
-        try:
-            z = float(input("Specific Z height: "))
-            return z
-        except ValueError:
-            print("\nERROR: Type a number only.\n")
+    return display
 
-# =========================================================
-# SAVE JSON
-# =========================================================
 
-def save_json(data):
-    with open(OUTPUT_JSON, "w") as f:
-        json.dump(data, f, indent=4)
+def save_calibration():
+    if len(clicked_points) != 9:
+        print("[ERROR] You must click all 9 points first.")
+        return
 
-    print("\n=================================================")
-    print("PULSE CALIBRATION COMPLETE")
-    print("=================================================")
-    print(f"Saved calibration file: {OUTPUT_JSON}")
-    print("=================================================\n")
+    if len(robot_pulse_points) != 9:
+        print("[ERROR] You must enter pulse values for all 9 points.")
+        return
 
-# =========================================================
-# MAIN
-# =========================================================
+    image_points = np.array(clicked_points, dtype=np.float64)
+    pulse_points = np.array(robot_pulse_points, dtype=np.float64)
 
-def main():
-    global clicked_point
+    # Linear least-squares map:
+    # [pixel_x, pixel_y, 1] -> [S, L, U, R, B, T]
+    A = np.column_stack([
+        image_points[:, 0],
+        image_points[:, 1],
+        np.ones(len(image_points))
+    ])
+
+    mapping_matrix, residuals, rank, singular_values = np.linalg.lstsq(
+        A,
+        pulse_points,
+        rcond=None
+    )
+
+    predicted_pulses = A @ mapping_matrix
+    errors = np.linalg.norm(predicted_pulses - pulse_points, axis=1)
+    avg_error = float(np.mean(errors))
 
     calibration_data = {
-        "timestamp": datetime.now().isoformat(timespec="seconds"),
-        "description": "Manual fake skin camera-to-robot pulse calibration",
-        "camera_width": CAMERA_WIDTH,
-        "camera_height": CAMERA_HEIGHT,
-        "color_mode": COLOR_MODE,
+        "description": "Pixel to robot pulse calibration using 9 manually entered pulse points",
         "coordinate_type": "PULSE",
         "pulse_order": ["S", "L", "U", "R", "B", "T"],
-        "ignored_cartesian_rotation": ["Rx", "Ry", "Rz"],
-        "round_count": ROUNDS,
-        "points_per_round": POINTS_PER_ROUND,
-        "point_order": LABELS,
-        "rounds": []
+        "click_order": point_labels,
+        "image_points_pixels": image_points.tolist(),
+        "robot_points_pulse": pulse_points.astype(int).tolist(),
+        "pixel_to_pulse_mapping_matrix": mapping_matrix.tolist(),
+        "calibration_test": {
+            "predicted_pulses": predicted_pulses.tolist(),
+            "errors": errors.tolist(),
+            "average_error": avg_error
+        }
     }
 
-    print("\n=================================================")
-    print("FAKE SKIN 3-ROUND PULSE CALIBRATION")
-    print("=================================================")
-    print("For EACH round:")
-    print("  1. Place fake skin on the board.")
-    print("  2. Click TL, TR, BR, BL in the camera window.")
-    print("  3. For each clicked point, enter S, L, U, R, B, T.")
-    print("  4. Move the fake skin to a new position.")
-    print()
-    print("At the end, you will enter ONE specific Z height.")
-    print()
-    print("Controls:")
-    print("  Left Click = select skin corner")
-    print("  Q = quit")
-    print("=================================================\n")
+    with open("calibration_pulse.json", "w") as f:
+        json.dump(calibration_data, f, indent=4)
 
-    picam2 = start_picamera()
+    print("\n=================================")
+    print("PULSE CALIBRATION SAVED")
+    print("=================================")
+    print("Saved as: calibration_pulse.json")
 
-    window_name = "Pi Camera Preview"
+    print("\nCalibration test:")
+    for i in range(9):
+        expected = pulse_points[i]
+        predicted = predicted_pulses[i]
+        error = errors[i]
+
+        print(
+            f"{point_labels[i]} | "
+            f"Expected={expected.astype(int).tolist()} | "
+            f"Predicted={[int(round(v)) for v in predicted]} | "
+            f"Error={error:.3f}"
+        )
+
+    print(f"\nAverage pulse error: {avg_error:.3f}")
+
+
+def main():
+    global clicked_points, robot_pulse_points
+
+    picam2 = Picamera2()
+
+    config = picam2.create_preview_configuration(
+        main={
+            "size": (1280, 720),
+            "format": "RGB888"
+        }
+    )
+
+    picam2.configure(config)
+    picam2.start()
+
+    time.sleep(2)
+
+    window_name = "9 Point Robot Pulse Calibration"
+
     cv2.namedWindow(window_name)
     cv2.setMouseCallback(window_name, mouse_callback)
 
-    try:
-        for round_num in range(1, ROUNDS + 1):
-            print("\n=================================================")
-            print(f"ROUND {round_num} OF {ROUNDS}")
-            print("=================================================")
-            print("Place the fake skin in position for this round.")
-            input("Press ENTER when ready...")
+    print("\n=================================")
+    print("9 POINT ROBOT PULSE CALIBRATION")
+    print("=================================")
+    print("Click points in this order:")
+    print("P1 P2 P3")
+    print("P4 P5 P6")
+    print("P7 P8 P9")
+    print()
+    print("After every click, enter:")
+    print("S, L, U, R, B, T")
+    print()
+    print("Controls:")
+    print("S = save calibration_pulse.json")
+    print("R = reset clicked points")
+    print("Q = quit")
+    print("=================================\n")
 
-            round_points = []
+    while True:
+        frame = picam2.capture_array()
 
-            for point_index, label in enumerate(LABELS, start=1):
-                clicked_point = None
+        # Picamera2 gives RGB.
+        # OpenCV displays BGR.
+        frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
-                print("\n-------------------------------------------------")
-                print(f"ROUND {round_num} - POINT {point_index}: {label}")
-                print(f"Click the {label} corner/dot in the camera window.")
-                print("Then enter the matching pulse coordinates.")
-                print("-------------------------------------------------")
+        display = draw_points(frame_bgr)
+        cv2.imshow(window_name, display)
 
-                while clicked_point is None:
-                    frame = get_frame(picam2)
-                    preview = frame.copy()
+        key = cv2.waitKey(1) & 0xFF
 
-                    draw_saved_points(preview, round_points)
+        if key == ord("q"):
+            print("[INFO] Quitting.")
+            break
 
-                    cv2.putText(
-                        preview,
-                        f"Round {round_num}/3 - Click {label}",
-                        (20, 35),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.9,
-                        (0, 255, 255),
-                        2,
-                    )
+        elif key == ord("r"):
+            clicked_points = []
+            robot_pulse_points = []
+            print("[INFO] Reset clicked points and pulse values. Start again from P1.")
 
-                    cv2.putText(
-                        preview,
-                        "Point order: TL, TR, BR, BL",
-                        (20, 70),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.7,
-                        (0, 255, 255),
-                        2,
-                    )
+        elif key == ord("s"):
+            save_calibration()
 
-                    cv2.putText(
-                        preview,
-                        "Left click point | Q=quit",
-                        (20, CAMERA_HEIGHT - 20),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.6,
-                        (255, 255, 255),
-                        2,
-                    )
-
-                    cv2.imshow(window_name, preview)
-
-                    key = cv2.waitKey(1) & 0xFF
-
-                    if key == ord("q"):
-                        print("\nCalibration cancelled.")
-                        return
-
-                camera_x, camera_y = clicked_point
-
-                print(f"\nSaved camera pixel for {label}:")
-                print(f"  x = {camera_x}")
-                print(f"  y = {camera_y}")
-
-                pulse_position = get_pulse_position(label)
-
-                point_data = {
-                    "label": label,
-                    "camera_pixel": {
-                        "x": int(camera_x),
-                        "y": int(camera_y)
-                    },
-                    "robot_pulse": pulse_position
-                }
-
-                round_points.append(point_data)
-
-                print(f"\nSAVED: Round {round_num}, Point {point_index}, {label}")
-
-            calibration_data["rounds"].append({
-                "round_number": round_num,
-                "timestamp": datetime.now().isoformat(timespec="seconds"),
-                "skin_points": {
-                    point["label"]: {
-                        "camera_pixel": point["camera_pixel"],
-                        "robot_pulse": point["robot_pulse"]
-                    }
-                    for point in round_points
-                },
-                "points": round_points
-            })
-
-            print("\n=================================================")
-            print(f"ROUND {round_num} COMPLETE")
-            print("=================================================")
-
-            if round_num < ROUNDS:
-                print("Move the fake skin to a NEW position.")
-                input("Press ENTER when ready for the next round...")
-
-        calibration_data["specific_z_height"] = get_specific_z()
-
-        save_json(calibration_data)
-
-    finally:
-        picam2.stop()
-        cv2.destroyAllWindows()
+    picam2.stop()
+    cv2.destroyAllWindows()
 
 
 if __name__ == "__main__":

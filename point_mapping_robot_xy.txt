@@ -1,0 +1,2199 @@
+Point Mapping: Design Image -> Robot XY Workspace
+==============================================================================
+
+Global Point 0
+  Contour/Point : (0, 0)
+  Image Point   : (33.00, 79.00)
+  Workspace UV  : (0.2979, 0.7789)
+  Robot XY mm   : X=416.059, Y=-19.465
+
+Global Point 1
+  Contour/Point : (0, 1)
+  Image Point   : (32.12, 79.88)
+  Workspace UV  : (0.2885, 0.7882)
+  Robot XY mm   : X=417.501, Y=-21.001
+
+Global Point 2
+  Contour/Point : (0, 2)
+  Image Point   : (31.00, 80.07)
+  Workspace UV  : (0.2766, 0.7902)
+  Robot XY mm   : X=417.912, Y=-22.998
+
+Global Point 3
+  Contour/Point : (0, 3)
+  Image Point   : (31.00, 81.31)
+  Workspace UV  : (0.2766, 0.8033)
+  Robot XY mm   : X=419.825, Y=-22.952
+
+Global Point 4
+  Contour/Point : (0, 4)
+  Image Point   : (31.00, 82.55)
+  Workspace UV  : (0.2766, 0.8164)
+  Robot XY mm   : X=421.739, Y=-22.905
+
+Global Point 5
+  Contour/Point : (0, 5)
+  Image Point   : (31.56, 83.56)
+  Workspace UV  : (0.2826, 0.8270)
+  Robot XY mm   : X=423.234, Y=-21.860
+
+Global Point 6
+  Contour/Point : (0, 6)
+  Image Point   : (32.62, 84.00)
+  Workspace UV  : (0.2939, 0.8316)
+  Robot XY mm   : X=423.794, Y=-19.946
+
+Global Point 7
+  Contour/Point : (0, 7)
+  Image Point   : (33.61, 83.39)
+  Workspace UV  : (0.3044, 0.8251)
+  Robot XY mm   : X=422.747, Y=-18.202
+
+Global Point 8
+  Contour/Point : (0, 8)
+  Image Point   : (34.49, 82.51)
+  Workspace UV  : (0.3137, 0.8159)
+  Robot XY mm   : X=421.304, Y=-16.665
+
+Global Point 9
+  Contour/Point : (0, 9)
+  Image Point   : (35.52, 82.00)
+  Workspace UV  : (0.3247, 0.8105)
+  Robot XY mm   : X=420.413, Y=-14.841
+
+Global Point 10
+  Contour/Point : (0, 10)
+  Image Point   : (36.76, 82.00)
+  Workspace UV  : (0.3379, 0.8105)
+  Robot XY mm   : X=420.284, Y=-12.621
+
+Global Point 11
+  Contour/Point : (0, 11)
+  Image Point   : (38.01, 82.00)
+  Workspace UV  : (0.3511, 0.8105)
+  Robot XY mm   : X=420.154, Y=-10.400
+
+Global Point 12
+  Contour/Point : (0, 12)
+  Image Point   : (39.25, 82.00)
+  Workspace UV  : (0.3643, 0.8105)
+  Robot XY mm   : X=420.025, Y=-8.180
+
+Global Point 13
+  Contour/Point : (0, 13)
+  Image Point   : (40.49, 82.00)
+  Workspace UV  : (0.3776, 0.8105)
+  Robot XY mm   : X=419.895, Y=-5.959
+
+Global Point 14
+  Contour/Point : (0, 14)
+  Image Point   : (41.52, 82.52)
+  Workspace UV  : (0.3885, 0.8160)
+  Robot XY mm   : X=420.583, Y=-4.101
+
+Global Point 15
+  Contour/Point : (0, 15)
+  Image Point   : (42.56, 83.00)
+  Workspace UV  : (0.3996, 0.8211)
+  Robot XY mm   : X=421.212, Y=-2.217
+
+Global Point 16
+  Contour/Point : (0, 16)
+  Image Point   : (43.80, 83.00)
+  Workspace UV  : (0.4128, 0.8211)
+  Robot XY mm   : X=421.082, Y=0.004
+
+Global Point 17
+  Contour/Point : (0, 17)
+  Image Point   : (45.03, 83.03)
+  Workspace UV  : (0.4259, 0.8214)
+  Robot XY mm   : X=421.002, Y=2.203
+
+Global Point 18
+  Contour/Point : (0, 18)
+  Image Point   : (45.91, 83.91)
+  Workspace UV  : (0.4352, 0.8306)
+  Robot XY mm   : X=422.254, Y=3.811
+
+Global Point 19
+  Contour/Point : (0, 19)
+  Image Point   : (47.11, 84.00)
+  Workspace UV  : (0.4480, 0.8316)
+  Robot XY mm   : X=422.264, Y=5.970
+
+Global Point 20
+  Contour/Point : (0, 20)
+  Image Point   : (48.25, 84.25)
+  Workspace UV  : (0.4601, 0.8342)
+  Robot XY mm   : X=422.530, Y=8.016
+
+Global Point 21
+  Contour/Point : (0, 21)
+  Image Point   : (49.18, 85.00)
+  Workspace UV  : (0.4701, 0.8421)
+  Robot XY mm   : X=423.574, Y=9.716
+
+Global Point 22
+  Contour/Point : (0, 22)
+  Image Point   : (50.43, 85.00)
+  Workspace UV  : (0.4833, 0.8421)
+  Robot XY mm   : X=423.442, Y=11.938
+
+Global Point 23
+  Contour/Point : (0, 23)
+  Image Point   : (51.47, 85.47)
+  Workspace UV  : (0.4944, 0.8471)
+  Robot XY mm   : X=424.053, Y=13.831
+
+Global Point 24
+  Contour/Point : (0, 24)
+  Image Point   : (52.50, 86.00)
+  Workspace UV  : (0.5053, 0.8526)
+  Robot XY mm   : X=424.748, Y=15.687
+
+Global Point 25
+  Contour/Point : (0, 25)
+  Image Point   : (53.52, 86.52)
+  Workspace UV  : (0.5162, 0.8581)
+  Robot XY mm   : X=425.436, Y=17.546
+
+Global Point 26
+  Contour/Point : (0, 26)
+  Image Point   : (54.40, 87.40)
+  Workspace UV  : (0.5255, 0.8674)
+  Robot XY mm   : X=426.681, Y=19.158
+
+Global Point 27
+  Contour/Point : (0, 27)
+  Image Point   : (55.39, 88.00)
+  Workspace UV  : (0.5361, 0.8737)
+  Robot XY mm   : X=427.486, Y=20.964
+
+Global Point 28
+  Contour/Point : (0, 28)
+  Image Point   : (56.45, 88.45)
+  Workspace UV  : (0.5473, 0.8784)
+  Robot XY mm   : X=428.058, Y=22.875
+
+Global Point 29
+  Contour/Point : (0, 29)
+  Image Point   : (57.47, 89.00)
+  Workspace UV  : (0.5581, 0.8842)
+  Robot XY mm   : X=428.785, Y=24.717
+
+Global Point 30
+  Contour/Point : (0, 30)
+  Image Point   : (58.50, 89.50)
+  Workspace UV  : (0.5691, 0.8895)
+  Robot XY mm   : X=429.433, Y=26.594
+
+Global Point 31
+  Contour/Point : (0, 31)
+  Image Point   : (59.54, 90.00)
+  Workspace UV  : (0.5802, 0.8947)
+  Robot XY mm   : X=430.081, Y=28.471
+
+Global Point 32
+  Contour/Point : (0, 32)
+  Image Point   : (60.55, 89.45)
+  Workspace UV  : (0.5910, 0.8890)
+  Robot XY mm   : X=429.134, Y=30.261
+
+Global Point 33
+  Contour/Point : (0, 33)
+  Image Point   : (61.43, 88.57)
+  Workspace UV  : (0.6003, 0.8797)
+  Robot XY mm   : X=427.703, Y=31.790
+
+Global Point 34
+  Contour/Point : (0, 34)
+  Image Point   : (61.57, 88.00)
+  Workspace UV  : (0.6018, 0.8737)
+  Robot XY mm   : X=426.818, Y=32.012
+
+Global Point 35
+  Contour/Point : (0, 35)
+  Image Point   : (60.52, 87.52)
+  Workspace UV  : (0.5907, 0.8687)
+  Robot XY mm   : X=426.205, Y=30.119
+
+Global Point 36
+  Contour/Point : (0, 36)
+  Image Point   : (59.64, 86.64)
+  Workspace UV  : (0.5813, 0.8594)
+  Robot XY mm   : X=424.964, Y=28.505
+
+Global Point 37
+  Contour/Point : (0, 37)
+  Image Point   : (58.67, 86.00)
+  Workspace UV  : (0.5709, 0.8526)
+  Robot XY mm   : X=424.088, Y=26.729
+
+Global Point 38
+  Contour/Point : (0, 38)
+  Image Point   : (57.59, 85.59)
+  Workspace UV  : (0.5595, 0.8484)
+  Robot XY mm   : X=423.586, Y=24.788
+
+Global Point 39
+  Contour/Point : (0, 39)
+  Image Point   : (56.60, 85.00)
+  Workspace UV  : (0.5489, 0.8421)
+  Robot XY mm   : X=422.786, Y=22.979
+
+Global Point 40
+  Contour/Point : (0, 40)
+  Image Point   : (55.55, 84.55)
+  Workspace UV  : (0.5377, 0.8373)
+  Robot XY mm   : X=422.205, Y=21.073
+
+Global Point 41
+  Contour/Point : (0, 41)
+  Image Point   : (54.53, 84.00)
+  Workspace UV  : (0.5269, 0.8316)
+  Robot XY mm   : X=421.481, Y=19.230
+
+Global Point 42
+  Contour/Point : (0, 42)
+  Image Point   : (53.50, 83.50)
+  Workspace UV  : (0.5159, 0.8263)
+  Robot XY mm   : X=420.821, Y=17.359
+
+Global Point 43
+  Contour/Point : (0, 43)
+  Image Point   : (52.46, 83.00)
+  Workspace UV  : (0.5049, 0.8211)
+  Robot XY mm   : X=420.174, Y=15.482
+
+Global Point 44
+  Contour/Point : (0, 44)
+  Image Point   : (51.45, 82.45)
+  Workspace UV  : (0.4941, 0.8152)
+  Robot XY mm   : X=419.435, Y=13.647
+
+Global Point 45
+  Contour/Point : (0, 45)
+  Image Point   : (50.39, 82.00)
+  Workspace UV  : (0.4829, 0.8105)
+  Robot XY mm   : X=418.864, Y=11.736
+
+Global Point 46
+  Contour/Point : (0, 46)
+  Image Point   : (49.15, 82.00)
+  Workspace UV  : (0.4696, 0.8105)
+  Robot XY mm   : X=418.993, Y=9.516
+
+Global Point 47
+  Contour/Point : (0, 47)
+  Image Point   : (48.23, 81.23)
+  Workspace UV  : (0.4598, 0.8024)
+  Robot XY mm   : X=417.905, Y=7.835
+
+Global Point 48
+  Contour/Point : (0, 48)
+  Image Point   : (47.08, 81.00)
+  Workspace UV  : (0.4476, 0.8000)
+  Robot XY mm   : X=417.679, Y=5.772
+
+Global Point 49
+  Contour/Point : (0, 49)
+  Image Point   : (45.88, 80.88)
+  Workspace UV  : (0.4349, 0.7988)
+  Robot XY mm   : X=417.624, Y=3.633
+
+Global Point 50
+  Contour/Point : (0, 50)
+  Image Point   : (45.00, 80.00)
+  Workspace UV  : (0.4256, 0.7895)
+  Robot XY mm   : X=416.370, Y=2.026
+
+Global Point 51
+  Contour/Point : (0, 51)
+  Image Point   : (43.76, 80.00)
+  Workspace UV  : (0.4124, 0.7895)
+  Robot XY mm   : X=416.490, Y=-0.190
+
+Global Point 52
+  Contour/Point : (0, 52)
+  Image Point   : (42.52, 80.00)
+  Workspace UV  : (0.3992, 0.7895)
+  Robot XY mm   : X=416.618, Y=-2.410
+
+Global Point 53
+  Contour/Point : (0, 53)
+  Image Point   : (41.28, 80.00)
+  Workspace UV  : (0.3860, 0.7895)
+  Robot XY mm   : X=416.746, Y=-4.630
+
+Global Point 54
+  Contour/Point : (0, 54)
+  Image Point   : (40.32, 79.32)
+  Workspace UV  : (0.3757, 0.7823)
+  Robot XY mm   : X=415.802, Y=-6.374
+
+Global Point 55
+  Contour/Point : (0, 55)
+  Image Point   : (39.21, 79.00)
+  Workspace UV  : (0.3639, 0.7789)
+  Robot XY mm   : X=415.424, Y=-8.369
+
+Global Point 56
+  Contour/Point : (0, 56)
+  Image Point   : (37.97, 79.00)
+  Workspace UV  : (0.3507, 0.7789)
+  Robot XY mm   : X=415.551, Y=-10.589
+
+Global Point 57
+  Contour/Point : (0, 57)
+  Image Point   : (36.73, 79.00)
+  Workspace UV  : (0.3375, 0.7789)
+  Robot XY mm   : X=415.678, Y=-12.808
+
+Global Point 58
+  Contour/Point : (0, 58)
+  Image Point   : (35.48, 79.00)
+  Workspace UV  : (0.3243, 0.7789)
+  Robot XY mm   : X=415.805, Y=-15.027
+
+Global Point 59
+  Contour/Point : (0, 59)
+  Image Point   : (34.24, 79.00)
+  Workspace UV  : (0.3111, 0.7789)
+  Robot XY mm   : X=415.932, Y=-17.246
+
+Global Point 60
+  Contour/Point : (0, 60)
+  Image Point   : (33.00, 79.00)
+  Workspace UV  : (0.2979, 0.7789)
+  Robot XY mm   : X=416.059, Y=-19.465
+
+Global Point 61
+  Contour/Point : (1, 0)
+  Image Point   : (74.00, 56.00)
+  Workspace UV  : (0.7340, 0.5368)
+  Robot XY mm   : X=377.101, Y=52.562
+
+Global Point 62
+  Contour/Point : (1, 1)
+  Image Point   : (73.63, 56.37)
+  Workspace UV  : (0.7301, 0.5408)
+  Robot XY mm   : X=377.695, Y=51.920
+
+Global Point 63
+  Contour/Point : (1, 2)
+  Image Point   : (73.26, 56.74)
+  Workspace UV  : (0.7261, 0.5447)
+  Robot XY mm   : X=378.290, Y=51.278
+
+Global Point 64
+  Contour/Point : (1, 3)
+  Image Point   : (73.00, 57.16)
+  Workspace UV  : (0.7234, 0.5491)
+  Robot XY mm   : X=378.947, Y=50.845
+
+Global Point 65
+  Contour/Point : (1, 4)
+  Image Point   : (73.00, 57.69)
+  Workspace UV  : (0.7234, 0.5546)
+  Robot XY mm   : X=379.742, Y=50.873
+
+Global Point 66
+  Contour/Point : (1, 5)
+  Image Point   : (72.85, 58.15)
+  Workspace UV  : (0.7218, 0.5595)
+  Robot XY mm   : X=380.456, Y=50.626
+
+Global Point 67
+  Contour/Point : (1, 6)
+  Image Point   : (72.48, 58.52)
+  Workspace UV  : (0.7178, 0.5634)
+  Robot XY mm   : X=381.051, Y=49.984
+
+Global Point 68
+  Contour/Point : (1, 7)
+  Image Point   : (72.10, 58.90)
+  Workspace UV  : (0.7139, 0.5673)
+  Robot XY mm   : X=381.647, Y=49.342
+
+Global Point 69
+  Contour/Point : (1, 8)
+  Image Point   : (72.00, 59.38)
+  Workspace UV  : (0.7128, 0.5724)
+  Robot XY mm   : X=382.386, Y=49.183
+
+Global Point 70
+  Contour/Point : (1, 9)
+  Image Point   : (72.00, 59.91)
+  Workspace UV  : (0.7128, 0.5779)
+  Robot XY mm   : X=383.182, Y=49.210
+
+Global Point 71
+  Contour/Point : (1, 10)
+  Image Point   : (71.70, 60.30)
+  Workspace UV  : (0.7095, 0.5822)
+  Robot XY mm   : X=383.814, Y=48.689
+
+Global Point 72
+  Contour/Point : (1, 11)
+  Image Point   : (71.32, 60.68)
+  Workspace UV  : (0.7056, 0.5861)
+  Robot XY mm   : X=384.410, Y=48.046
+
+Global Point 73
+  Contour/Point : (1, 12)
+  Image Point   : (71.00, 61.07)
+  Workspace UV  : (0.7021, 0.5902)
+  Robot XY mm   : X=385.033, Y=47.491
+
+Global Point 74
+  Contour/Point : (1, 13)
+  Image Point   : (71.00, 61.59)
+  Workspace UV  : (0.7021, 0.5957)
+  Robot XY mm   : X=385.829, Y=47.519
+
+Global Point 75
+  Contour/Point : (1, 14)
+  Image Point   : (71.00, 62.12)
+  Workspace UV  : (0.7021, 0.6013)
+  Robot XY mm   : X=386.625, Y=47.546
+
+Global Point 76
+  Contour/Point : (1, 15)
+  Image Point   : (71.00, 62.65)
+  Workspace UV  : (0.7021, 0.6068)
+  Robot XY mm   : X=387.421, Y=47.573
+
+Global Point 77
+  Contour/Point : (1, 16)
+  Image Point   : (71.00, 63.17)
+  Workspace UV  : (0.7021, 0.6123)
+  Robot XY mm   : X=388.217, Y=47.601
+
+Global Point 78
+  Contour/Point : (1, 17)
+  Image Point   : (71.00, 63.70)
+  Workspace UV  : (0.7021, 0.6179)
+  Robot XY mm   : X=389.013, Y=47.628
+
+Global Point 79
+  Contour/Point : (1, 18)
+  Image Point   : (71.00, 64.22)
+  Workspace UV  : (0.7021, 0.6234)
+  Robot XY mm   : X=389.809, Y=47.656
+
+Global Point 80
+  Contour/Point : (1, 19)
+  Image Point   : (71.00, 64.75)
+  Workspace UV  : (0.7021, 0.6289)
+  Robot XY mm   : X=390.605, Y=47.683
+
+Global Point 81
+  Contour/Point : (1, 20)
+  Image Point   : (71.00, 65.28)
+  Workspace UV  : (0.7021, 0.6345)
+  Robot XY mm   : X=391.401, Y=47.711
+
+Global Point 82
+  Contour/Point : (1, 21)
+  Image Point   : (71.00, 65.80)
+  Workspace UV  : (0.7021, 0.6400)
+  Robot XY mm   : X=392.197, Y=47.738
+
+Global Point 83
+  Contour/Point : (1, 22)
+  Image Point   : (71.00, 66.33)
+  Workspace UV  : (0.7021, 0.6456)
+  Robot XY mm   : X=392.993, Y=47.765
+
+Global Point 84
+  Contour/Point : (1, 23)
+  Image Point   : (71.00, 66.85)
+  Workspace UV  : (0.7021, 0.6511)
+  Robot XY mm   : X=393.790, Y=47.793
+
+Global Point 85
+  Contour/Point : (1, 24)
+  Image Point   : (71.27, 67.27)
+  Workspace UV  : (0.7050, 0.6555)
+  Robot XY mm   : X=394.392, Y=48.293
+
+Global Point 86
+  Contour/Point : (1, 25)
+  Image Point   : (71.64, 67.64)
+  Workspace UV  : (0.7089, 0.6594)
+  Robot XY mm   : X=394.919, Y=48.976
+
+Global Point 87
+  Contour/Point : (1, 26)
+  Image Point   : (72.01, 67.99)
+  Workspace UV  : (0.7129, 0.6630)
+  Robot XY mm   : X=395.409, Y=49.657
+
+Global Point 88
+  Contour/Point : (1, 27)
+  Image Point   : (72.38, 67.62)
+  Workspace UV  : (0.7169, 0.6591)
+  Robot XY mm   : X=394.812, Y=50.300
+
+Global Point 89
+  Contour/Point : (1, 28)
+  Image Point   : (72.76, 67.24)
+  Workspace UV  : (0.7208, 0.6552)
+  Robot XY mm   : X=394.214, Y=50.943
+
+Global Point 90
+  Contour/Point : (1, 29)
+  Image Point   : (73.13, 66.87)
+  Workspace UV  : (0.7248, 0.6513)
+  Robot XY mm   : X=393.616, Y=51.587
+
+Global Point 91
+  Contour/Point : (1, 30)
+  Image Point   : (73.50, 66.50)
+  Workspace UV  : (0.7287, 0.6474)
+  Robot XY mm   : X=393.019, Y=52.230
+
+Global Point 92
+  Contour/Point : (1, 31)
+  Image Point   : (73.87, 66.13)
+  Workspace UV  : (0.7327, 0.6435)
+  Robot XY mm   : X=392.422, Y=52.873
+
+Global Point 93
+  Contour/Point : (1, 32)
+  Image Point   : (74.24, 65.76)
+  Workspace UV  : (0.7366, 0.6395)
+  Robot XY mm   : X=391.825, Y=53.515
+
+Global Point 94
+  Contour/Point : (1, 33)
+  Image Point   : (74.62, 65.38)
+  Workspace UV  : (0.7406, 0.6356)
+  Robot XY mm   : X=391.229, Y=54.158
+
+Global Point 95
+  Contour/Point : (1, 34)
+  Image Point   : (74.99, 65.01)
+  Workspace UV  : (0.7445, 0.6317)
+  Robot XY mm   : X=390.632, Y=54.801
+
+Global Point 96
+  Contour/Point : (1, 35)
+  Image Point   : (75.36, 64.64)
+  Workspace UV  : (0.7485, 0.6278)
+  Robot XY mm   : X=390.036, Y=55.443
+
+Global Point 97
+  Contour/Point : (1, 36)
+  Image Point   : (75.73, 64.27)
+  Workspace UV  : (0.7525, 0.6239)
+  Robot XY mm   : X=389.440, Y=56.086
+
+Global Point 98
+  Contour/Point : (1, 37)
+  Image Point   : (76.00, 63.85)
+  Workspace UV  : (0.7553, 0.6195)
+  Robot XY mm   : X=388.788, Y=56.542
+
+Global Point 99
+  Contour/Point : (1, 38)
+  Image Point   : (76.00, 63.33)
+  Workspace UV  : (0.7553, 0.6140)
+  Robot XY mm   : X=387.994, Y=56.514
+
+Global Point 100
+  Contour/Point : (1, 39)
+  Image Point   : (76.14, 62.86)
+  Workspace UV  : (0.7568, 0.6091)
+  Robot XY mm   : X=387.275, Y=56.738
+
+Global Point 101
+  Contour/Point : (1, 40)
+  Image Point   : (76.51, 62.49)
+  Workspace UV  : (0.7608, 0.6051)
+  Robot XY mm   : X=386.679, Y=57.380
+
+Global Point 102
+  Contour/Point : (1, 41)
+  Image Point   : (76.88, 62.12)
+  Workspace UV  : (0.7647, 0.6012)
+  Robot XY mm   : X=386.084, Y=58.022
+
+Global Point 103
+  Contour/Point : (1, 42)
+  Image Point   : (77.00, 61.64)
+  Workspace UV  : (0.7660, 0.5962)
+  Robot XY mm   : X=385.352, Y=58.203
+
+Global Point 104
+  Contour/Point : (1, 43)
+  Image Point   : (77.00, 61.11)
+  Workspace UV  : (0.7660, 0.5907)
+  Robot XY mm   : X=384.558, Y=58.174
+
+Global Point 105
+  Contour/Point : (1, 44)
+  Image Point   : (77.00, 60.59)
+  Workspace UV  : (0.7660, 0.5851)
+  Robot XY mm   : X=383.764, Y=58.146
+
+Global Point 106
+  Contour/Point : (1, 45)
+  Image Point   : (77.00, 60.06)
+  Workspace UV  : (0.7660, 0.5796)
+  Robot XY mm   : X=382.970, Y=58.117
+
+Global Point 107
+  Contour/Point : (1, 46)
+  Image Point   : (77.33, 59.67)
+  Workspace UV  : (0.7695, 0.5755)
+  Robot XY mm   : X=382.353, Y=58.681
+
+Global Point 108
+  Contour/Point : (1, 47)
+  Image Point   : (77.70, 59.30)
+  Workspace UV  : (0.7734, 0.5716)
+  Robot XY mm   : X=381.758, Y=59.323
+
+Global Point 109
+  Contour/Point : (1, 48)
+  Image Point   : (78.00, 58.90)
+  Workspace UV  : (0.7766, 0.5673)
+  Robot XY mm   : X=381.125, Y=59.833
+
+Global Point 110
+  Contour/Point : (1, 49)
+  Image Point   : (78.00, 58.37)
+  Workspace UV  : (0.7766, 0.5618)
+  Robot XY mm   : X=380.331, Y=59.804
+
+Global Point 111
+  Contour/Point : (1, 50)
+  Image Point   : (78.00, 57.85)
+  Workspace UV  : (0.7766, 0.5563)
+  Robot XY mm   : X=379.538, Y=59.776
+
+Global Point 112
+  Contour/Point : (1, 51)
+  Image Point   : (78.00, 57.32)
+  Workspace UV  : (0.7766, 0.5507)
+  Robot XY mm   : X=378.744, Y=59.747
+
+Global Point 113
+  Contour/Point : (1, 52)
+  Image Point   : (77.85, 56.85)
+  Workspace UV  : (0.7750, 0.5458)
+  Robot XY mm   : X=378.055, Y=59.461
+
+Global Point 114
+  Contour/Point : (1, 53)
+  Image Point   : (77.48, 56.48)
+  Workspace UV  : (0.7711, 0.5419)
+  Robot XY mm   : X=377.526, Y=58.780
+
+Global Point 115
+  Contour/Point : (1, 54)
+  Image Point   : (77.11, 56.11)
+  Workspace UV  : (0.7671, 0.5380)
+  Robot XY mm   : X=376.997, Y=58.098
+
+Global Point 116
+  Contour/Point : (1, 55)
+  Image Point   : (76.63, 56.00)
+  Workspace UV  : (0.7620, 0.5368)
+  Robot XY mm   : X=376.872, Y=57.238
+
+Global Point 117
+  Contour/Point : (1, 56)
+  Image Point   : (76.10, 56.00)
+  Workspace UV  : (0.7564, 0.5368)
+  Robot XY mm   : X=376.918, Y=56.303
+
+Global Point 118
+  Contour/Point : (1, 57)
+  Image Point   : (75.58, 56.00)
+  Workspace UV  : (0.7508, 0.5368)
+  Robot XY mm   : X=376.964, Y=55.367
+
+Global Point 119
+  Contour/Point : (1, 58)
+  Image Point   : (75.05, 56.00)
+  Workspace UV  : (0.7452, 0.5368)
+  Robot XY mm   : X=377.009, Y=54.432
+
+Global Point 120
+  Contour/Point : (1, 59)
+  Image Point   : (74.53, 56.00)
+  Workspace UV  : (0.7396, 0.5368)
+  Robot XY mm   : X=377.055, Y=53.497
+
+Global Point 121
+  Contour/Point : (1, 60)
+  Image Point   : (74.00, 56.00)
+  Workspace UV  : (0.7340, 0.5368)
+  Robot XY mm   : X=377.101, Y=52.562
+
+Global Point 122
+  Contour/Point : (2, 0)
+  Image Point   : (43.00, 56.00)
+  Workspace UV  : (0.4043, 0.5368)
+  Robot XY mm   : X=379.790, Y=-2.564
+
+Global Point 123
+  Contour/Point : (2, 1)
+  Image Point   : (42.52, 56.48)
+  Workspace UV  : (0.3992, 0.5419)
+  Robot XY mm   : X=380.565, Y=-3.396
+
+Global Point 124
+  Contour/Point : (2, 2)
+  Image Point   : (42.04, 56.96)
+  Workspace UV  : (0.3941, 0.5469)
+  Robot XY mm   : X=381.341, Y=-4.227
+
+Global Point 125
+  Contour/Point : (2, 3)
+  Image Point   : (41.56, 57.44)
+  Workspace UV  : (0.3890, 0.5520)
+  Robot XY mm   : X=382.117, Y=-5.059
+
+Global Point 126
+  Contour/Point : (2, 4)
+  Image Point   : (41.08, 57.92)
+  Workspace UV  : (0.3839, 0.5570)
+  Robot XY mm   : X=382.893, Y=-5.891
+
+Global Point 127
+  Contour/Point : (2, 5)
+  Image Point   : (41.00, 58.56)
+  Workspace UV  : (0.3830, 0.5638)
+  Robot XY mm   : X=383.885, Y=-6.015
+
+Global Point 128
+  Contour/Point : (2, 6)
+  Image Point   : (40.83, 59.17)
+  Workspace UV  : (0.3812, 0.5702)
+  Robot XY mm   : X=384.833, Y=-6.285
+
+Global Point 129
+  Contour/Point : (2, 7)
+  Image Point   : (40.36, 59.64)
+  Workspace UV  : (0.3761, 0.5752)
+  Robot XY mm   : X=385.611, Y=-7.118
+
+Global Point 130
+  Contour/Point : (2, 8)
+  Image Point   : (40.00, 60.17)
+  Workspace UV  : (0.3723, 0.5808)
+  Robot XY mm   : X=386.455, Y=-7.729
+
+Global Point 131
+  Contour/Point : (2, 9)
+  Image Point   : (40.00, 60.85)
+  Workspace UV  : (0.3723, 0.5879)
+  Robot XY mm   : X=387.494, Y=-7.701
+
+Global Point 132
+  Contour/Point : (2, 10)
+  Image Point   : (40.00, 61.53)
+  Workspace UV  : (0.3723, 0.5950)
+  Robot XY mm   : X=388.534, Y=-7.673
+
+Global Point 133
+  Contour/Point : (2, 11)
+  Image Point   : (39.85, 62.15)
+  Workspace UV  : (0.3708, 0.6015)
+  Robot XY mm   : X=389.493, Y=-7.907
+
+Global Point 134
+  Contour/Point : (2, 12)
+  Image Point   : (39.38, 62.62)
+  Workspace UV  : (0.3657, 0.6066)
+  Robot XY mm   : X=390.272, Y=-8.740
+
+Global Point 135
+  Contour/Point : (2, 13)
+  Image Point   : (38.90, 63.10)
+  Workspace UV  : (0.3606, 0.6116)
+  Robot XY mm   : X=391.050, Y=-9.573
+
+Global Point 136
+  Contour/Point : (2, 14)
+  Image Point   : (38.42, 63.58)
+  Workspace UV  : (0.3555, 0.6167)
+  Robot XY mm   : X=391.830, Y=-10.407
+
+Global Point 137
+  Contour/Point : (2, 15)
+  Image Point   : (37.91, 64.00)
+  Workspace UV  : (0.3502, 0.6211)
+  Robot XY mm   : X=392.518, Y=-11.287
+
+Global Point 138
+  Contour/Point : (2, 16)
+  Image Point   : (37.24, 64.00)
+  Workspace UV  : (0.3429, 0.6211)
+  Robot XY mm   : X=392.580, Y=-12.493
+
+Global Point 139
+  Contour/Point : (2, 17)
+  Image Point   : (36.56, 64.00)
+  Workspace UV  : (0.3357, 0.6211)
+  Robot XY mm   : X=392.643, Y=-13.699
+
+Global Point 140
+  Contour/Point : (2, 18)
+  Image Point   : (35.88, 64.00)
+  Workspace UV  : (0.3285, 0.6211)
+  Robot XY mm   : X=392.705, Y=-14.905
+
+Global Point 141
+  Contour/Point : (2, 19)
+  Image Point   : (35.21, 64.00)
+  Workspace UV  : (0.3213, 0.6211)
+  Robot XY mm   : X=392.768, Y=-16.112
+
+Global Point 142
+  Contour/Point : (2, 20)
+  Image Point   : (35.00, 64.47)
+  Workspace UV  : (0.3191, 0.6260)
+  Robot XY mm   : X=393.511, Y=-16.460
+
+Global Point 143
+  Contour/Point : (2, 21)
+  Image Point   : (35.00, 65.15)
+  Workspace UV  : (0.3191, 0.6331)
+  Robot XY mm   : X=394.553, Y=-16.433
+
+Global Point 144
+  Contour/Point : (2, 22)
+  Image Point   : (35.00, 65.83)
+  Workspace UV  : (0.3191, 0.6403)
+  Robot XY mm   : X=395.594, Y=-16.407
+
+Global Point 145
+  Contour/Point : (2, 23)
+  Image Point   : (35.36, 66.36)
+  Workspace UV  : (0.3229, 0.6458)
+  Robot XY mm   : X=396.376, Y=-15.752
+
+Global Point 146
+  Contour/Point : (2, 24)
+  Image Point   : (35.83, 66.83)
+  Workspace UV  : (0.3280, 0.6509)
+  Robot XY mm   : X=397.067, Y=-14.880
+
+Global Point 147
+  Contour/Point : (2, 25)
+  Image Point   : (36.31, 67.31)
+  Workspace UV  : (0.3331, 0.6559)
+  Robot XY mm   : X=397.758, Y=-14.008
+
+Global Point 148
+  Contour/Point : (2, 26)
+  Image Point   : (36.79, 67.79)
+  Workspace UV  : (0.3382, 0.6610)
+  Robot XY mm   : X=398.448, Y=-13.136
+
+Global Point 149
+  Contour/Point : (2, 27)
+  Image Point   : (37.38, 68.00)
+  Workspace UV  : (0.3445, 0.6632)
+  Robot XY mm   : X=398.712, Y=-12.074
+
+Global Point 150
+  Contour/Point : (2, 28)
+  Image Point   : (38.06, 68.00)
+  Workspace UV  : (0.3517, 0.6632)
+  Robot XY mm   : X=398.648, Y=-10.867
+
+Global Point 151
+  Contour/Point : (2, 29)
+  Image Point   : (38.74, 68.00)
+  Workspace UV  : (0.3589, 0.6632)
+  Robot XY mm   : X=398.584, Y=-9.660
+
+Global Point 152
+  Contour/Point : (2, 30)
+  Image Point   : (39.29, 67.71)
+  Workspace UV  : (0.3648, 0.6601)
+  Robot XY mm   : X=398.081, Y=-8.681
+
+Global Point 153
+  Contour/Point : (2, 31)
+  Image Point   : (39.77, 67.23)
+  Workspace UV  : (0.3699, 0.6550)
+  Robot XY mm   : X=397.301, Y=-7.847
+
+Global Point 154
+  Contour/Point : (2, 32)
+  Image Point   : (40.25, 66.75)
+  Workspace UV  : (0.3750, 0.6500)
+  Robot XY mm   : X=396.521, Y=-7.013
+
+Global Point 155
+  Contour/Point : (2, 33)
+  Image Point   : (40.73, 66.27)
+  Workspace UV  : (0.3801, 0.6450)
+  Robot XY mm   : X=395.742, Y=-6.180
+
+Global Point 156
+  Contour/Point : (2, 34)
+  Image Point   : (41.21, 65.79)
+  Workspace UV  : (0.3852, 0.6399)
+  Robot XY mm   : X=394.963, Y=-5.346
+
+Global Point 157
+  Contour/Point : (2, 35)
+  Image Point   : (41.69, 65.31)
+  Workspace UV  : (0.3903, 0.6349)
+  Robot XY mm   : X=394.184, Y=-4.513
+
+Global Point 158
+  Contour/Point : (2, 36)
+  Image Point   : (42.17, 64.83)
+  Workspace UV  : (0.3954, 0.6298)
+  Robot XY mm   : X=393.405, Y=-3.680
+
+Global Point 159
+  Contour/Point : (2, 37)
+  Image Point   : (42.64, 64.36)
+  Workspace UV  : (0.4005, 0.6248)
+  Robot XY mm   : X=392.627, Y=-2.847
+
+Global Point 160
+  Contour/Point : (2, 38)
+  Image Point   : (43.12, 63.88)
+  Workspace UV  : (0.4056, 0.6198)
+  Robot XY mm   : X=391.849, Y=-2.014
+
+Global Point 161
+  Contour/Point : (2, 39)
+  Image Point   : (43.60, 63.40)
+  Workspace UV  : (0.4107, 0.6147)
+  Robot XY mm   : X=391.072, Y=-1.182
+
+Global Point 162
+  Contour/Point : (2, 40)
+  Image Point   : (44.08, 62.92)
+  Workspace UV  : (0.4158, 0.6097)
+  Robot XY mm   : X=390.294, Y=-0.349
+
+Global Point 163
+  Contour/Point : (2, 41)
+  Image Point   : (44.56, 62.44)
+  Workspace UV  : (0.4208, 0.6046)
+  Robot XY mm   : X=389.517, Y=0.483
+
+Global Point 164
+  Contour/Point : (2, 42)
+  Image Point   : (45.00, 61.95)
+  Workspace UV  : (0.4255, 0.5994)
+  Robot XY mm   : X=388.720, Y=1.246
+
+Global Point 165
+  Contour/Point : (2, 43)
+  Image Point   : (45.00, 61.27)
+  Workspace UV  : (0.4255, 0.5923)
+  Robot XY mm   : X=387.683, Y=1.217
+
+Global Point 166
+  Contour/Point : (2, 44)
+  Image Point   : (45.29, 60.71)
+  Workspace UV  : (0.4286, 0.5864)
+  Robot XY mm   : X=386.803, Y=1.708
+
+Global Point 167
+  Contour/Point : (2, 45)
+  Image Point   : (45.77, 60.23)
+  Workspace UV  : (0.4337, 0.5814)
+  Robot XY mm   : X=386.027, Y=2.539
+
+Global Point 168
+  Contour/Point : (2, 46)
+  Image Point   : (46.25, 59.75)
+  Workspace UV  : (0.4388, 0.5764)
+  Robot XY mm   : X=385.252, Y=3.371
+
+Global Point 169
+  Contour/Point : (2, 47)
+  Image Point   : (46.73, 59.27)
+  Workspace UV  : (0.4439, 0.5713)
+  Robot XY mm   : X=384.477, Y=4.202
+
+Global Point 170
+  Contour/Point : (2, 48)
+  Image Point   : (47.00, 58.71)
+  Workspace UV  : (0.4468, 0.5654)
+  Robot XY mm   : X=383.590, Y=4.666
+
+Global Point 171
+  Contour/Point : (2, 49)
+  Image Point   : (47.00, 58.03)
+  Workspace UV  : (0.4468, 0.5583)
+  Robot XY mm   : X=382.555, Y=4.637
+
+Global Point 172
+  Contour/Point : (2, 50)
+  Image Point   : (47.45, 57.55)
+  Workspace UV  : (0.4516, 0.5531)
+  Robot XY mm   : X=381.767, Y=5.424
+
+Global Point 173
+  Contour/Point : (2, 51)
+  Image Point   : (47.93, 57.07)
+  Workspace UV  : (0.4567, 0.5481)
+  Robot XY mm   : X=380.993, Y=6.255
+
+Global Point 174
+  Contour/Point : (2, 52)
+  Image Point   : (48.00, 56.42)
+  Workspace UV  : (0.4574, 0.5412)
+  Robot XY mm   : X=379.994, Y=6.345
+
+Global Point 175
+  Contour/Point : (2, 53)
+  Image Point   : (47.74, 56.00)
+  Workspace UV  : (0.4547, 0.5368)
+  Robot XY mm   : X=379.379, Y=5.864
+
+Global Point 176
+  Contour/Point : (2, 54)
+  Image Point   : (47.06, 56.00)
+  Workspace UV  : (0.4475, 0.5368)
+  Robot XY mm   : X=379.437, Y=4.660
+
+Global Point 177
+  Contour/Point : (2, 55)
+  Image Point   : (46.39, 56.00)
+  Workspace UV  : (0.4403, 0.5368)
+  Robot XY mm   : X=379.496, Y=3.456
+
+Global Point 178
+  Contour/Point : (2, 56)
+  Image Point   : (45.71, 56.00)
+  Workspace UV  : (0.4331, 0.5368)
+  Robot XY mm   : X=379.555, Y=2.252
+
+Global Point 179
+  Contour/Point : (2, 57)
+  Image Point   : (45.03, 56.00)
+  Workspace UV  : (0.4259, 0.5368)
+  Robot XY mm   : X=379.613, Y=1.048
+
+Global Point 180
+  Contour/Point : (2, 58)
+  Image Point   : (44.35, 56.00)
+  Workspace UV  : (0.4187, 0.5368)
+  Robot XY mm   : X=379.672, Y=-0.156
+
+Global Point 181
+  Contour/Point : (2, 59)
+  Image Point   : (43.68, 56.00)
+  Workspace UV  : (0.4115, 0.5368)
+  Robot XY mm   : X=379.731, Y=-1.360
+
+Global Point 182
+  Contour/Point : (2, 60)
+  Image Point   : (43.00, 56.00)
+  Workspace UV  : (0.4043, 0.5368)
+  Robot XY mm   : X=379.790, Y=-2.564
+
+Global Point 183
+  Contour/Point : (3, 0)
+  Image Point   : (48.00, 36.00)
+  Workspace UV  : (0.4574, 0.3263)
+  Robot XY mm   : X=348.774, Y=5.451
+
+Global Point 184
+  Contour/Point : (3, 1)
+  Image Point   : (47.56, 36.44)
+  Workspace UV  : (0.4528, 0.3309)
+  Robot XY mm   : X=349.472, Y=4.699
+
+Global Point 185
+  Contour/Point : (3, 2)
+  Image Point   : (47.13, 36.87)
+  Workspace UV  : (0.4482, 0.3355)
+  Robot XY mm   : X=350.171, Y=3.946
+
+Global Point 186
+  Contour/Point : (3, 3)
+  Image Point   : (46.69, 37.31)
+  Workspace UV  : (0.4435, 0.3401)
+  Robot XY mm   : X=350.870, Y=3.193
+
+Global Point 187
+  Contour/Point : (3, 4)
+  Image Point   : (46.26, 37.74)
+  Workspace UV  : (0.4389, 0.3447)
+  Robot XY mm   : X=351.569, Y=2.440
+
+Global Point 188
+  Contour/Point : (3, 5)
+  Image Point   : (45.75, 38.00)
+  Workspace UV  : (0.4335, 0.3474)
+  Robot XY mm   : X=352.000, Y=1.548
+
+Global Point 189
+  Contour/Point : (3, 6)
+  Image Point   : (45.13, 38.00)
+  Workspace UV  : (0.4269, 0.3474)
+  Robot XY mm   : X=352.046, Y=0.456
+
+Global Point 190
+  Contour/Point : (3, 7)
+  Image Point   : (44.66, 38.34)
+  Workspace UV  : (0.4219, 0.3510)
+  Robot XY mm   : X=352.607, Y=-0.369
+
+Global Point 191
+  Contour/Point : (3, 8)
+  Image Point   : (44.22, 38.78)
+  Workspace UV  : (0.4172, 0.3556)
+  Robot XY mm   : X=353.307, Y=-1.123
+
+Global Point 192
+  Contour/Point : (3, 9)
+  Image Point   : (43.79, 39.21)
+  Workspace UV  : (0.4126, 0.3601)
+  Robot XY mm   : X=354.007, Y=-1.876
+
+Global Point 193
+  Contour/Point : (3, 10)
+  Image Point   : (43.35, 39.65)
+  Workspace UV  : (0.4080, 0.3647)
+  Robot XY mm   : X=354.707, Y=-2.630
+
+Global Point 194
+  Contour/Point : (3, 11)
+  Image Point   : (42.88, 40.00)
+  Workspace UV  : (0.4030, 0.3684)
+  Robot XY mm   : X=355.279, Y=-3.451
+
+Global Point 195
+  Contour/Point : (3, 12)
+  Image Point   : (42.26, 40.00)
+  Workspace UV  : (0.3964, 0.3684)
+  Robot XY mm   : X=355.326, Y=-4.543
+
+Global Point 196
+  Contour/Point : (3, 13)
+  Image Point   : (41.65, 40.00)
+  Workspace UV  : (0.3899, 0.3684)
+  Robot XY mm   : X=355.373, Y=-5.635
+
+Global Point 197
+  Contour/Point : (3, 14)
+  Image Point   : (41.03, 40.00)
+  Workspace UV  : (0.3833, 0.3684)
+  Robot XY mm   : X=355.420, Y=-6.727
+
+Global Point 198
+  Contour/Point : (3, 15)
+  Image Point   : (40.41, 40.00)
+  Workspace UV  : (0.3767, 0.3684)
+  Robot XY mm   : X=355.467, Y=-7.819
+
+Global Point 199
+  Contour/Point : (3, 16)
+  Image Point   : (39.80, 40.00)
+  Workspace UV  : (0.3702, 0.3684)
+  Robot XY mm   : X=355.513, Y=-8.911
+
+Global Point 200
+  Contour/Point : (3, 17)
+  Image Point   : (39.18, 40.00)
+  Workspace UV  : (0.3636, 0.3684)
+  Robot XY mm   : X=355.560, Y=-10.003
+
+Global Point 201
+  Contour/Point : (3, 18)
+  Image Point   : (38.57, 40.00)
+  Workspace UV  : (0.3571, 0.3684)
+  Robot XY mm   : X=355.607, Y=-11.095
+
+Global Point 202
+  Contour/Point : (3, 19)
+  Image Point   : (37.95, 40.00)
+  Workspace UV  : (0.3505, 0.3684)
+  Robot XY mm   : X=355.654, Y=-12.188
+
+Global Point 203
+  Contour/Point : (3, 20)
+  Image Point   : (37.33, 40.00)
+  Workspace UV  : (0.3440, 0.3684)
+  Robot XY mm   : X=355.701, Y=-13.280
+
+Global Point 204
+  Contour/Point : (3, 21)
+  Image Point   : (37.00, 40.28)
+  Workspace UV  : (0.3404, 0.3714)
+  Robot XY mm   : X=356.161, Y=-13.859
+
+Global Point 205
+  Contour/Point : (3, 22)
+  Image Point   : (37.00, 40.90)
+  Workspace UV  : (0.3404, 0.3779)
+  Robot XY mm   : X=357.107, Y=-13.835
+
+Global Point 206
+  Contour/Point : (3, 23)
+  Image Point   : (37.00, 41.52)
+  Workspace UV  : (0.3404, 0.3844)
+  Robot XY mm   : X=358.054, Y=-13.810
+
+Global Point 207
+  Contour/Point : (3, 24)
+  Image Point   : (37.13, 42.00)
+  Workspace UV  : (0.3418, 0.3895)
+  Robot XY mm   : X=358.789, Y=-13.558
+
+Global Point 208
+  Contour/Point : (3, 25)
+  Image Point   : (37.75, 42.00)
+  Workspace UV  : (0.3484, 0.3895)
+  Robot XY mm   : X=358.741, Y=-12.465
+
+Global Point 209
+  Contour/Point : (3, 26)
+  Image Point   : (38.26, 42.26)
+  Workspace UV  : (0.3538, 0.3922)
+  Robot XY mm   : X=359.097, Y=-11.551
+
+Global Point 210
+  Contour/Point : (3, 27)
+  Image Point   : (38.69, 42.69)
+  Workspace UV  : (0.3584, 0.3968)
+  Robot XY mm   : X=359.732, Y=-10.761
+
+Global Point 211
+  Contour/Point : (3, 28)
+  Image Point   : (39.18, 43.00)
+  Workspace UV  : (0.3636, 0.4000)
+  Robot XY mm   : X=360.165, Y=-9.882
+
+Global Point 212
+  Contour/Point : (3, 29)
+  Image Point   : (39.80, 43.00)
+  Workspace UV  : (0.3702, 0.4000)
+  Robot XY mm   : X=360.117, Y=-8.789
+
+Global Point 213
+  Contour/Point : (3, 30)
+  Image Point   : (40.41, 43.00)
+  Workspace UV  : (0.3767, 0.4000)
+  Robot XY mm   : X=360.069, Y=-7.696
+
+Global Point 214
+  Contour/Point : (3, 31)
+  Image Point   : (41.03, 43.00)
+  Workspace UV  : (0.3833, 0.4000)
+  Robot XY mm   : X=360.021, Y=-6.603
+
+Global Point 215
+  Contour/Point : (3, 32)
+  Image Point   : (41.65, 43.00)
+  Workspace UV  : (0.3899, 0.4000)
+  Robot XY mm   : X=359.973, Y=-5.510
+
+Global Point 216
+  Contour/Point : (3, 33)
+  Image Point   : (42.26, 43.00)
+  Workspace UV  : (0.3964, 0.4000)
+  Robot XY mm   : X=359.925, Y=-4.418
+
+Global Point 217
+  Contour/Point : (3, 34)
+  Image Point   : (42.88, 43.00)
+  Workspace UV  : (0.4030, 0.4000)
+  Robot XY mm   : X=359.877, Y=-3.325
+
+Global Point 218
+  Contour/Point : (3, 35)
+  Image Point   : (43.35, 42.65)
+  Workspace UV  : (0.4080, 0.3963)
+  Robot XY mm   : X=359.304, Y=-2.504
+
+Global Point 219
+  Contour/Point : (3, 36)
+  Image Point   : (43.79, 42.21)
+  Workspace UV  : (0.4126, 0.3917)
+  Robot XY mm   : X=358.603, Y=-1.750
+
+Global Point 220
+  Contour/Point : (3, 37)
+  Image Point   : (44.31, 42.00)
+  Workspace UV  : (0.4182, 0.3895)
+  Robot XY mm   : X=358.234, Y=-0.823
+
+Global Point 221
+  Contour/Point : (3, 38)
+  Image Point   : (44.93, 42.00)
+  Workspace UV  : (0.4248, 0.3895)
+  Robot XY mm   : X=358.186, Y=0.269
+
+Global Point 222
+  Contour/Point : (3, 39)
+  Image Point   : (45.55, 42.00)
+  Workspace UV  : (0.4313, 0.3895)
+  Robot XY mm   : X=358.138, Y=1.362
+
+Global Point 223
+  Contour/Point : (3, 40)
+  Image Point   : (46.11, 41.89)
+  Workspace UV  : (0.4374, 0.3883)
+  Robot XY mm   : X=357.919, Y=2.365
+
+Global Point 224
+  Contour/Point : (3, 41)
+  Image Point   : (46.55, 41.45)
+  Workspace UV  : (0.4420, 0.3837)
+  Robot XY mm   : X=357.219, Y=3.119
+
+Global Point 225
+  Contour/Point : (3, 42)
+  Image Point   : (46.99, 41.01)
+  Workspace UV  : (0.4467, 0.3791)
+  Robot XY mm   : X=356.519, Y=3.873
+
+Global Point 226
+  Contour/Point : (3, 43)
+  Image Point   : (47.42, 40.58)
+  Workspace UV  : (0.4513, 0.3745)
+  Robot XY mm   : X=355.819, Y=4.626
+
+Global Point 227
+  Contour/Point : (3, 44)
+  Image Point   : (47.86, 40.14)
+  Workspace UV  : (0.4559, 0.3699)
+  Robot XY mm   : X=355.120, Y=5.379
+
+Global Point 228
+  Contour/Point : (3, 45)
+  Image Point   : (48.29, 39.71)
+  Workspace UV  : (0.4606, 0.3653)
+  Robot XY mm   : X=354.420, Y=6.133
+
+Global Point 229
+  Contour/Point : (3, 46)
+  Image Point   : (48.73, 39.27)
+  Workspace UV  : (0.4652, 0.3608)
+  Robot XY mm   : X=353.721, Y=6.886
+
+Global Point 230
+  Contour/Point : (3, 47)
+  Image Point   : (49.16, 38.84)
+  Workspace UV  : (0.4698, 0.3562)
+  Robot XY mm   : X=353.022, Y=7.638
+
+Global Point 231
+  Contour/Point : (3, 48)
+  Image Point   : (49.60, 38.40)
+  Workspace UV  : (0.4745, 0.3516)
+  Robot XY mm   : X=352.324, Y=8.391
+
+Global Point 232
+  Contour/Point : (3, 49)
+  Image Point   : (50.04, 37.96)
+  Workspace UV  : (0.4791, 0.3470)
+  Robot XY mm   : X=351.626, Y=9.144
+
+Global Point 233
+  Contour/Point : (3, 50)
+  Image Point   : (50.47, 37.53)
+  Workspace UV  : (0.4837, 0.3424)
+  Robot XY mm   : X=350.928, Y=9.896
+
+Global Point 234
+  Contour/Point : (3, 51)
+  Image Point   : (50.91, 37.09)
+  Workspace UV  : (0.4884, 0.3378)
+  Robot XY mm   : X=350.230, Y=10.649
+
+Global Point 235
+  Contour/Point : (3, 52)
+  Image Point   : (51.34, 36.66)
+  Workspace UV  : (0.4930, 0.3332)
+  Robot XY mm   : X=349.532, Y=11.401
+
+Global Point 236
+  Contour/Point : (3, 53)
+  Image Point   : (51.78, 36.22)
+  Workspace UV  : (0.4976, 0.3286)
+  Robot XY mm   : X=348.835, Y=12.153
+
+Global Point 237
+  Contour/Point : (3, 54)
+  Image Point   : (51.70, 36.00)
+  Workspace UV  : (0.4968, 0.3263)
+  Robot XY mm   : X=348.503, Y=11.999
+
+Global Point 238
+  Contour/Point : (3, 55)
+  Image Point   : (51.08, 36.00)
+  Workspace UV  : (0.4902, 0.3263)
+  Robot XY mm   : X=348.548, Y=10.907
+
+Global Point 239
+  Contour/Point : (3, 56)
+  Image Point   : (50.46, 36.00)
+  Workspace UV  : (0.4837, 0.3263)
+  Robot XY mm   : X=348.593, Y=9.816
+
+Global Point 240
+  Contour/Point : (3, 57)
+  Image Point   : (49.85, 36.00)
+  Workspace UV  : (0.4771, 0.3263)
+  Robot XY mm   : X=348.638, Y=8.725
+
+Global Point 241
+  Contour/Point : (3, 58)
+  Image Point   : (49.23, 36.00)
+  Workspace UV  : (0.4706, 0.3263)
+  Robot XY mm   : X=348.684, Y=7.634
+
+Global Point 242
+  Contour/Point : (3, 59)
+  Image Point   : (48.62, 36.00)
+  Workspace UV  : (0.4640, 0.3263)
+  Robot XY mm   : X=348.729, Y=6.542
+
+Global Point 243
+  Contour/Point : (3, 60)
+  Image Point   : (48.00, 36.00)
+  Workspace UV  : (0.4574, 0.3263)
+  Robot XY mm   : X=348.774, Y=5.451
+
+Global Point 244
+  Contour/Point : (4, 0)
+  Image Point   : (49.00, 8.00)
+  Workspace UV  : (0.4681, 0.0316)
+  Robot XY mm   : X=305.905, Y=5.986
+
+Global Point 245
+  Contour/Point : (4, 1)
+  Image Point   : (53.24, 8.00)
+  Workspace UV  : (0.5131, 0.0316)
+  Robot XY mm   : X=305.674, Y=13.443
+
+Global Point 246
+  Contour/Point : (4, 2)
+  Image Point   : (58.30, 8.00)
+  Workspace UV  : (0.5670, 0.0316)
+  Robot XY mm   : X=305.398, Y=22.358
+
+Global Point 247
+  Contour/Point : (4, 3)
+  Image Point   : (62.95, 9.00)
+  Workspace UV  : (0.6165, 0.0421)
+  Robot XY mm   : X=306.664, Y=30.594
+
+Global Point 248
+  Contour/Point : (4, 4)
+  Image Point   : (67.18, 11.00)
+  Workspace UV  : (0.6615, 0.0632)
+  Robot XY mm   : X=309.463, Y=38.154
+
+Global Point 249
+  Contour/Point : (4, 5)
+  Image Point   : (71.42, 13.00)
+  Workspace UV  : (0.7066, 0.0842)
+  Robot XY mm   : X=312.251, Y=45.720
+
+Global Point 250
+  Contour/Point : (4, 6)
+  Image Point   : (75.46, 15.46)
+  Workspace UV  : (0.7496, 0.1101)
+  Robot XY mm   : X=315.736, Y=52.980
+
+Global Point 251
+  Contour/Point : (4, 7)
+  Image Point   : (79.47, 18.00)
+  Workspace UV  : (0.7923, 0.1368)
+  Robot XY mm   : X=319.325, Y=60.196
+
+Global Point 252
+  Contour/Point : (4, 8)
+  Image Point   : (83.21, 21.21)
+  Workspace UV  : (0.8320, 0.1706)
+  Robot XY mm   : X=323.926, Y=66.967
+
+Global Point 253
+  Contour/Point : (4, 9)
+  Image Point   : (86.79, 24.79)
+  Workspace UV  : (0.8701, 0.2083)
+  Robot XY mm   : X=329.080, Y=73.496
+
+Global Point 254
+  Contour/Point : (4, 10)
+  Image Point   : (90.00, 28.52)
+  Workspace UV  : (0.9043, 0.2476)
+  Robot XY mm   : X=334.472, Y=79.391
+
+Global Point 255
+  Contour/Point : (4, 11)
+  Image Point   : (92.54, 32.54)
+  Workspace UV  : (0.9312, 0.2898)
+  Robot XY mm   : X=340.316, Y=84.114
+
+Global Point 256
+  Contour/Point : (4, 12)
+  Image Point   : (94.70, 36.70)
+  Workspace UV  : (0.9543, 0.3337)
+  Robot XY mm   : X=346.402, Y=88.201
+
+Global Point 257
+  Contour/Point : (4, 13)
+  Image Point   : (96.87, 40.87)
+  Workspace UV  : (0.9773, 0.3776)
+  Robot XY mm   : X=352.475, Y=92.294
+
+Global Point 258
+  Contour/Point : (4, 14)
+  Image Point   : (98.00, 45.46)
+  Workspace UV  : (0.9894, 0.4259)
+  Robot XY mm   : X=359.259, Y=94.587
+
+Global Point 259
+  Contour/Point : (4, 15)
+  Image Point   : (99.00, 50.11)
+  Workspace UV  : (1.0000, 0.4749)
+  Robot XY mm   : X=366.129, Y=96.651
+
+Global Point 260
+  Contour/Point : (4, 16)
+  Image Point   : (98.17, 54.83)
+  Workspace UV  : (0.9912, 0.5245)
+  Robot XY mm   : X=373.255, Y=95.469
+
+Global Point 261
+  Contour/Point : (4, 17)
+  Image Point   : (97.42, 59.58)
+  Workspace UV  : (0.9832, 0.5746)
+  Robot XY mm   : X=380.428, Y=94.425
+
+Global Point 262
+  Contour/Point : (4, 18)
+  Image Point   : (96.00, 64.06)
+  Workspace UV  : (0.9681, 0.6217)
+  Robot XY mm   : X=387.254, Y=92.177
+
+Global Point 263
+  Contour/Point : (4, 19)
+  Image Point   : (94.00, 68.29)
+  Workspace UV  : (0.9468, 0.6662)
+  Robot XY mm   : X=393.783, Y=88.871
+
+Global Point 264
+  Contour/Point : (4, 20)
+  Image Point   : (91.63, 72.37)
+  Workspace UV  : (0.9216, 0.7092)
+  Robot XY mm   : X=400.128, Y=84.882
+
+Global Point 265
+  Contour/Point : (4, 21)
+  Image Point   : (88.75, 76.25)
+  Workspace UV  : (0.8910, 0.7500)
+  Robot XY mm   : X=406.225, Y=79.983
+
+Global Point 266
+  Contour/Point : (4, 22)
+  Image Point   : (85.17, 79.83)
+  Workspace UV  : (0.8529, 0.7877)
+  Robot XY mm   : X=411.970, Y=73.795
+
+Global Point 267
+  Contour/Point : (4, 23)
+  Image Point   : (81.59, 83.41)
+  Workspace UV  : (0.8148, 0.8253)
+  Robot XY mm   : X=417.732, Y=67.597
+
+Global Point 268
+  Contour/Point : (4, 24)
+  Image Point   : (77.72, 86.28)
+  Workspace UV  : (0.7736, 0.8556)
+  Robot XY mm   : X=422.475, Y=60.828
+
+Global Point 269
+  Contour/Point : (4, 25)
+  Image Point   : (73.85, 89.15)
+  Workspace UV  : (0.7324, 0.8858)
+  Robot XY mm   : X=427.234, Y=54.051
+
+Global Point 270
+  Contour/Point : (4, 26)
+  Image Point   : (69.68, 91.32)
+  Workspace UV  : (0.6881, 0.9086)
+  Robot XY mm   : X=430.969, Y=46.704
+
+Global Point 271
+  Contour/Point : (4, 27)
+  Image Point   : (65.51, 93.49)
+  Workspace UV  : (0.6438, 0.9314)
+  Robot XY mm   : X=434.716, Y=39.350
+
+Global Point 272
+  Contour/Point : (4, 28)
+  Image Point   : (61.08, 95.00)
+  Workspace UV  : (0.5966, 0.9474)
+  Robot XY mm   : X=437.513, Y=31.474
+
+Global Point 273
+  Contour/Point : (4, 29)
+  Image Point   : (56.43, 96.00)
+  Workspace UV  : (0.5471, 0.9579)
+  Robot XY mm   : X=439.562, Y=23.187
+
+Global Point 274
+  Contour/Point : (4, 30)
+  Image Point   : (51.78, 97.00)
+  Workspace UV  : (0.4976, 0.9684)
+  Robot XY mm   : X=441.617, Y=14.897
+
+Global Point 275
+  Contour/Point : (4, 31)
+  Image Point   : (46.71, 97.00)
+  Workspace UV  : (0.4438, 0.9684)
+  Robot XY mm   : X=442.196, Y=5.818
+
+Global Point 276
+  Contour/Point : (4, 32)
+  Image Point   : (42.07, 96.00)
+  Workspace UV  : (0.3943, 0.9579)
+  Robot XY mm   : X=441.195, Y=-2.561
+
+Global Point 277
+  Contour/Point : (4, 33)
+  Image Point   : (37.42, 95.00)
+  Workspace UV  : (0.3449, 0.9474)
+  Robot XY mm   : X=440.187, Y=-10.936
+
+Global Point 278
+  Contour/Point : (4, 34)
+  Image Point   : (33.13, 93.13)
+  Workspace UV  : (0.2992, 0.9277)
+  Robot XY mm   : X=437.791, Y=-18.694
+
+Global Point 279
+  Contour/Point : (4, 35)
+  Image Point   : (28.96, 90.96)
+  Workspace UV  : (0.2549, 0.9049)
+  Robot XY mm   : X=434.916, Y=-26.239
+
+Global Point 280
+  Contour/Point : (4, 36)
+  Image Point   : (25.09, 88.09)
+  Workspace UV  : (0.2137, 0.8746)
+  Robot XY mm   : X=430.905, Y=-33.278
+
+Global Point 281
+  Contour/Point : (4, 37)
+  Image Point   : (21.51, 84.51)
+  Workspace UV  : (0.1756, 0.8369)
+  Robot XY mm   : X=425.755, Y=-39.809
+
+Global Point 282
+  Contour/Point : (4, 38)
+  Image Point   : (17.93, 80.93)
+  Workspace UV  : (0.1375, 0.7992)
+  Robot XY mm   : X=420.587, Y=-46.330
+
+Global Point 283
+  Contour/Point : (4, 39)
+  Image Point   : (15.05, 77.05)
+  Workspace UV  : (0.1070, 0.7585)
+  Robot XY mm   : X=414.876, Y=-51.589
+
+Global Point 284
+  Contour/Point : (4, 40)
+  Image Point   : (13.00, 72.84)
+  Workspace UV  : (0.0851, 0.7141)
+  Robot XY mm   : X=408.543, Y=-55.389
+
+Global Point 285
+  Contour/Point : (4, 41)
+  Image Point   : (11.00, 68.61)
+  Workspace UV  : (0.0638, 0.6696)
+  Robot XY mm   : X=402.158, Y=-59.086
+
+Global Point 286
+  Contour/Point : (4, 42)
+  Image Point   : (9.26, 64.26)
+  Workspace UV  : (0.0454, 0.6238)
+  Robot XY mm   : X=395.567, Y=-62.312
+
+Global Point 287
+  Contour/Point : (4, 43)
+  Image Point   : (8.51, 59.51)
+  Workspace UV  : (0.0374, 0.5738)
+  Robot XY mm   : X=388.244, Y=-63.791
+
+Global Point 288
+  Contour/Point : (4, 44)
+  Image Point   : (8.00, 54.66)
+  Workspace UV  : (0.0319, 0.5227)
+  Robot XY mm   : X=380.740, Y=-64.843
+
+Global Point 289
+  Contour/Point : (4, 45)
+  Image Point   : (8.00, 49.60)
+  Workspace UV  : (0.0319, 0.4694)
+  Robot XY mm   : X=372.861, Y=-64.991
+
+Global Point 290
+  Contour/Point : (4, 46)
+  Image Point   : (8.00, 44.53)
+  Workspace UV  : (0.0319, 0.4161)
+  Robot XY mm   : X=364.983, Y=-65.139
+
+Global Point 291
+  Contour/Point : (4, 47)
+  Image Point   : (9.00, 39.88)
+  Workspace UV  : (0.0426, 0.3672)
+  Robot XY mm   : X=357.672, Y=-63.502
+
+Global Point 292
+  Contour/Point : (4, 48)
+  Image Point   : (10.54, 35.46)
+  Workspace UV  : (0.0590, 0.3206)
+  Robot XY mm   : X=350.678, Y=-60.904
+
+Global Point 293
+  Contour/Point : (4, 49)
+  Image Point   : (12.00, 31.00)
+  Workspace UV  : (0.0745, 0.2737)
+  Robot XY mm   : X=343.645, Y=-58.457
+
+Global Point 294
+  Contour/Point : (4, 50)
+  Image Point   : (14.17, 26.83)
+  Workspace UV  : (0.0975, 0.2298)
+  Robot XY mm   : X=337.028, Y=-54.756
+
+Global Point 295
+  Contour/Point : (4, 51)
+  Image Point   : (17.04, 22.96)
+  Workspace UV  : (0.1281, 0.1891)
+  Robot XY mm   : X=330.832, Y=-49.803
+
+Global Point 296
+  Contour/Point : (4, 52)
+  Image Point   : (20.00, 19.12)
+  Workspace UV  : (0.1596, 0.1487)
+  Robot XY mm   : X=324.701, Y=-44.703
+
+Global Point 297
+  Contour/Point : (4, 53)
+  Image Point   : (23.70, 16.00)
+  Workspace UV  : (0.1989, 0.1158)
+  Robot XY mm   : X=319.646, Y=-38.286
+
+Global Point 298
+  Contour/Point : (4, 54)
+  Image Point   : (27.93, 14.00)
+  Workspace UV  : (0.2440, 0.0947)
+  Robot XY mm   : X=316.307, Y=-30.890
+
+Global Point 299
+  Contour/Point : (4, 55)
+  Image Point   : (32.58, 13.00)
+  Workspace UV  : (0.2934, 0.0842)
+  Robot XY mm   : X=314.496, Y=-22.731
+
+Global Point 300
+  Contour/Point : (4, 56)
+  Image Point   : (36.87, 14.87)
+  Workspace UV  : (0.3391, 0.1039)
+  Robot XY mm   : X=317.123, Y=-15.098
+
+Global Point 301
+  Contour/Point : (4, 57)
+  Image Point   : (38.96, 12.96)
+  Workspace UV  : (0.3613, 0.0838)
+  Robot XY mm   : X=314.070, Y=-11.486
+
+Global Point 302
+  Contour/Point : (4, 58)
+  Image Point   : (39.29, 9.00)
+  Workspace UV  : (0.3648, 0.0421)
+  Robot XY mm   : X=307.968, Y=-11.076
+
+Global Point 303
+  Contour/Point : (4, 59)
+  Image Point   : (43.94, 8.00)
+  Workspace UV  : (0.4142, 0.0316)
+  Robot XY mm   : X=306.180, Y=-2.930
+
+Global Point 304
+  Contour/Point : (4, 60)
+  Image Point   : (49.00, 8.00)
+  Workspace UV  : (0.4681, 0.0316)
+  Robot XY mm   : X=305.905, Y=5.986
+
+Global Point 305
+  Contour/Point : (5, 0)
+  Image Point   : (44.00, 5.00)
+  Workspace UV  : (0.4149, 0.0000)
+  Robot XY mm   : X=301.581, Y=-2.945
+
+Global Point 306
+  Contour/Point : (5, 1)
+  Image Point   : (39.41, 6.59)
+  Workspace UV  : (0.3661, 0.0167)
+  Robot XY mm   : X=304.259, Y=-10.954
+
+Global Point 307
+  Contour/Point : (5, 2)
+  Image Point   : (34.75, 8.00)
+  Workspace UV  : (0.3165, 0.0316)
+  Robot XY mm   : X=306.680, Y=-19.103
+
+Global Point 308
+  Contour/Point : (5, 3)
+  Image Point   : (30.24, 9.76)
+  Workspace UV  : (0.2685, 0.0501)
+  Robot XY mm   : X=309.644, Y=-26.987
+
+Global Point 309
+  Contour/Point : (5, 4)
+  Image Point   : (25.65, 11.35)
+  Workspace UV  : (0.2197, 0.0669)
+  Robot XY mm   : X=312.351, Y=-35.012
+
+Global Point 310
+  Contour/Point : (5, 5)
+  Image Point   : (21.35, 13.65)
+  Workspace UV  : (0.1740, 0.0910)
+  Robot XY mm   : X=316.145, Y=-42.501
+
+Global Point 311
+  Contour/Point : (5, 6)
+  Image Point   : (17.64, 17.36)
+  Workspace UV  : (0.1345, 0.1301)
+  Robot XY mm   : X=322.108, Y=-48.919
+
+Global Point 312
+  Contour/Point : (5, 7)
+  Image Point   : (14.64, 21.36)
+  Workspace UV  : (0.1026, 0.1722)
+  Robot XY mm   : X=328.500, Y=-54.088
+
+Global Point 313
+  Contour/Point : (5, 8)
+  Image Point   : (12.00, 25.51)
+  Workspace UV  : (0.0745, 0.2159)
+  Robot XY mm   : X=335.116, Y=-58.626
+
+Global Point 314
+  Contour/Point : (5, 9)
+  Image Point   : (9.35, 29.65)
+  Workspace UV  : (0.0462, 0.2595)
+  Robot XY mm   : X=341.739, Y=-63.194
+
+Global Point 315
+  Contour/Point : (5, 10)
+  Image Point   : (8.00, 34.34)
+  Workspace UV  : (0.0319, 0.3089)
+  Robot XY mm   : X=349.127, Y=-65.437
+
+Global Point 316
+  Contour/Point : (5, 11)
+  Image Point   : (6.17, 38.83)
+  Workspace UV  : (0.0124, 0.3561)
+  Robot XY mm   : X=356.247, Y=-68.549
+
+Global Point 317
+  Contour/Point : (5, 12)
+  Image Point   : (6.00, 44.00)
+  Workspace UV  : (0.0106, 0.4106)
+  Robot XY mm   : X=364.318, Y=-68.709
+
+Global Point 318
+  Contour/Point : (5, 13)
+  Image Point   : (5.00, 48.84)
+  Workspace UV  : (0.0000, 0.4614)
+  Robot XY mm   : X=371.926, Y=-70.340
+
+Global Point 319
+  Contour/Point : (5, 14)
+  Image Point   : (5.00, 54.08)
+  Workspace UV  : (0.0000, 0.5167)
+  Robot XY mm   : X=380.099, Y=-70.192
+
+Global Point 320
+  Contour/Point : (5, 15)
+  Image Point   : (6.00, 58.91)
+  Workspace UV  : (0.0106, 0.5675)
+  Robot XY mm   : X=387.538, Y=-68.277
+
+Global Point 321
+  Contour/Point : (5, 16)
+  Image Point   : (6.82, 63.82)
+  Workspace UV  : (0.0194, 0.6192)
+  Robot XY mm   : X=395.103, Y=-66.676
+
+Global Point 322
+  Contour/Point : (5, 17)
+  Image Point   : (8.00, 68.58)
+  Workspace UV  : (0.0319, 0.6692)
+  Robot XY mm   : X=402.396, Y=-64.436
+
+Global Point 323
+  Contour/Point : (5, 18)
+  Image Point   : (10.00, 73.00)
+  Workspace UV  : (0.0531, 0.7157)
+  Robot XY mm   : X=409.076, Y=-60.745
+
+Global Point 324
+  Contour/Point : (5, 19)
+  Image Point   : (12.00, 77.41)
+  Workspace UV  : (0.0745, 0.7622)
+  Robot XY mm   : X=415.738, Y=-57.033
+
+Global Point 325
+  Contour/Point : (5, 20)
+  Image Point   : (14.59, 81.59)
+  Workspace UV  : (0.1020, 0.8062)
+  Robot XY mm   : X=421.953, Y=-52.283
+
+Global Point 326
+  Contour/Point : (5, 21)
+  Image Point   : (17.59, 85.59)
+  Workspace UV  : (0.1339, 0.8483)
+  Robot XY mm   : X=427.843, Y=-46.785
+
+Global Point 327
+  Contour/Point : (5, 22)
+  Image Point   : (21.30, 89.30)
+  Workspace UV  : (0.1734, 0.8873)
+  Robot XY mm   : X=433.186, Y=-40.023
+
+Global Point 328
+  Contour/Point : (5, 23)
+  Image Point   : (25.30, 92.30)
+  Workspace UV  : (0.2159, 0.9189)
+  Robot XY mm   : X=437.385, Y=-32.751
+
+Global Point 329
+  Contour/Point : (5, 24)
+  Image Point   : (29.59, 94.59)
+  Workspace UV  : (0.2616, 0.9431)
+  Robot XY mm   : X=440.445, Y=-24.972
+
+Global Point 330
+  Contour/Point : (5, 25)
+  Image Point   : (33.89, 96.89)
+  Workspace UV  : (0.3073, 0.9673)
+  Robot XY mm   : X=443.492, Y=-17.185
+
+Global Point 331
+  Contour/Point : (5, 26)
+  Image Point   : (38.67, 98.00)
+  Workspace UV  : (0.3582, 0.9789)
+  Robot XY mm   : X=444.651, Y=-8.560
+
+Global Point 332
+  Contour/Point : (5, 27)
+  Image Point   : (43.51, 99.00)
+  Workspace UV  : (0.4096, 0.9895)
+  Robot XY mm   : X=445.627, Y=0.148
+
+Global Point 333
+  Contour/Point : (5, 28)
+  Image Point   : (48.34, 100.00)
+  Workspace UV  : (0.4610, 1.0000)
+  Robot XY mm   : X=446.597, Y=8.859
+
+Global Point 334
+  Contour/Point : (5, 29)
+  Image Point   : (53.17, 99.00)
+  Workspace UV  : (0.5124, 0.9895)
+  Robot XY mm   : X=444.509, Y=17.482
+
+Global Point 335
+  Contour/Point : (5, 30)
+  Image Point   : (58.29, 98.71)
+  Workspace UV  : (0.5669, 0.9864)
+  Robot XY mm   : X=443.471, Y=26.660
+
+Global Point 336
+  Contour/Point : (5, 31)
+  Image Point   : (62.88, 97.12)
+  Workspace UV  : (0.6158, 0.9697)
+  Robot XY mm   : X=440.529, Y=34.812
+
+Global Point 337
+  Contour/Point : (5, 32)
+  Image Point   : (67.47, 95.53)
+  Workspace UV  : (0.6646, 0.9530)
+  Robot XY mm   : X=437.596, Y=42.958
+
+Global Point 338
+  Contour/Point : (5, 33)
+  Image Point   : (72.06, 93.94)
+  Workspace UV  : (0.7134, 0.9362)
+  Robot XY mm   : X=434.674, Y=51.099
+
+Global Point 339
+  Contour/Point : (5, 34)
+  Image Point   : (76.08, 91.00)
+  Workspace UV  : (0.7562, 0.9053)
+  Robot XY mm   : X=429.777, Y=58.156
+
+Global Point 340
+  Contour/Point : (5, 35)
+  Image Point   : (80.35, 88.65)
+  Workspace UV  : (0.8016, 0.8805)
+  Robot XY mm   : X=425.758, Y=65.674
+
+Global Point 341
+  Contour/Point : (5, 36)
+  Image Point   : (84.36, 85.64)
+  Workspace UV  : (0.8442, 0.8489)
+  Robot XY mm   : X=420.806, Y=72.667
+
+Global Point 342
+  Contour/Point : (5, 37)
+  Image Point   : (88.06, 81.94)
+  Workspace UV  : (0.8837, 0.8098)
+  Robot XY mm   : X=414.838, Y=79.086
+
+Global Point 343
+  Contour/Point : (5, 38)
+  Image Point   : (91.07, 77.93)
+  Workspace UV  : (0.9156, 0.7677)
+  Robot XY mm   : X=408.522, Y=84.215
+
+Global Point 344
+  Contour/Point : (5, 39)
+  Image Point   : (94.07, 73.93)
+  Workspace UV  : (0.9475, 0.7256)
+  Robot XY mm   : X=402.222, Y=89.335
+
+Global Point 345
+  Contour/Point : (5, 40)
+  Image Point   : (96.36, 69.64)
+  Workspace UV  : (0.9720, 0.6804)
+  Robot XY mm   : X=395.567, Y=93.167
+
+Global Point 346
+  Contour/Point : (5, 41)
+  Image Point   : (98.00, 65.07)
+  Workspace UV  : (0.9894, 0.6323)
+  Robot XY mm   : X=388.579, Y=95.802
+
+Global Point 347
+  Contour/Point : (5, 42)
+  Image Point   : (99.00, 60.24)
+  Workspace UV  : (1.0000, 0.5814)
+  Robot XY mm   : X=381.265, Y=97.282
+
+Global Point 348
+  Contour/Point : (5, 43)
+  Image Point   : (99.00, 54.99)
+  Workspace UV  : (1.0000, 0.5262)
+  Robot XY mm   : X=373.424, Y=96.955
+
+Global Point 349
+  Contour/Point : (5, 44)
+  Image Point   : (99.00, 49.75)
+  Workspace UV  : (1.0000, 0.4710)
+  Robot XY mm   : X=365.583, Y=96.628
+
+Global Point 350
+  Contour/Point : (5, 45)
+  Image Point   : (99.00, 44.50)
+  Workspace UV  : (1.0000, 0.4158)
+  Robot XY mm   : X=357.742, Y=96.301
+
+Global Point 351
+  Contour/Point : (5, 46)
+  Image Point   : (99.00, 39.25)
+  Workspace UV  : (1.0000, 0.3606)
+  Robot XY mm   : X=349.901, Y=95.974
+
+Global Point 352
+  Contour/Point : (5, 47)
+  Image Point   : (97.00, 34.84)
+  Workspace UV  : (0.9787, 0.3141)
+  Robot XY mm   : X=343.443, Y=92.157
+
+Global Point 353
+  Contour/Point : (5, 48)
+  Image Point   : (95.00, 30.42)
+  Workspace UV  : (0.9574, 0.2676)
+  Robot XY mm   : X=336.974, Y=88.347
+
+Global Point 354
+  Contour/Point : (5, 49)
+  Image Point   : (92.29, 26.29)
+  Workspace UV  : (0.9287, 0.2242)
+  Robot XY mm   : X=330.977, Y=83.315
+
+Global Point 355
+  Contour/Point : (5, 50)
+  Image Point   : (89.29, 22.29)
+  Workspace UV  : (0.8967, 0.1820)
+  Robot XY mm   : X=325.169, Y=77.774
+
+Global Point 356
+  Contour/Point : (5, 51)
+  Image Point   : (85.58, 18.58)
+  Workspace UV  : (0.8573, 0.1430)
+  Robot XY mm   : X=319.829, Y=71.010
+
+Global Point 357
+  Contour/Point : (5, 52)
+  Image Point   : (81.58, 15.58)
+  Workspace UV  : (0.8147, 0.1114)
+  Robot XY mm   : X=315.553, Y=63.780
+
+Global Point 358
+  Contour/Point : (5, 53)
+  Image Point   : (77.58, 12.58)
+  Workspace UV  : (0.7721, 0.0798)
+  Robot XY mm   : X=311.260, Y=56.558
+
+Global Point 359
+  Contour/Point : (5, 54)
+  Image Point   : (73.28, 10.28)
+  Workspace UV  : (0.7264, 0.0556)
+  Robot XY mm   : X=308.037, Y=48.867
+
+Global Point 360
+  Contour/Point : (5, 55)
+  Image Point   : (68.70, 8.70)
+  Workspace UV  : (0.6776, 0.0389)
+  Robot XY mm   : X=305.888, Y=40.703
+
+Global Point 361
+  Contour/Point : (5, 56)
+  Image Point   : (64.15, 7.00)
+  Workspace UV  : (0.6293, 0.0211)
+  Robot XY mm   : X=303.561, Y=32.619
+
+Global Point 362
+  Contour/Point : (5, 57)
+  Image Point   : (59.32, 6.00)
+  Workspace UV  : (0.5779, 0.0105)
+  Robot XY mm   : X=302.300, Y=24.066
+
+Global Point 363
+  Contour/Point : (5, 58)
+  Image Point   : (54.49, 5.00)
+  Workspace UV  : (0.5265, 0.0000)
+  Robot XY mm   : X=301.031, Y=15.516
+
+Global Point 364
+  Contour/Point : (5, 59)
+  Image Point   : (49.25, 5.00)
+  Workspace UV  : (0.4707, 0.0000)
+  Robot XY mm   : X=301.306, Y=6.286
+
+Global Point 365
+  Contour/Point : (5, 60)
+  Image Point   : (44.00, 5.00)
+  Workspace UV  : (0.4149, 0.0000)
+  Robot XY mm   : X=301.581, Y=-2.945
+
