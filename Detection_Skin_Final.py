@@ -24,7 +24,6 @@ CALIBRATION_FILE = "calibration.json"
 OUTPUT_IMAGE = "detected_fake_skin_result.jpg"
 OUTPUT_MASK  = "detected_fake_skin_mask.jpg"
 OUTPUT_JSON  = "fake_skin_coordinates_robot.json"
-OUTPUT_TXT   = "fake_skin_coordinates_robot.txt"
 
 tuner_open = False
 
@@ -41,17 +40,17 @@ def load_calibration():
         H = np.array(data["homography_pixel_to_robot"], dtype=np.float32)
 
         print("[OK] Loaded calibration.json")
-        print("[OK] Homography pixel → robot XY ready")
+        print("[OK] Pixel to robot XY calibration ready")
 
         return H
 
     except FileNotFoundError:
         print("[ERROR] calibration.json not found.")
-        print("Run the 9-point calibration code first.")
+        print("Run your 9-point calibration code first.")
         return None
 
     except KeyError:
-        print("[ERROR] calibration.json is missing 'homography_pixel_to_robot'.")
+        print("[ERROR] calibration.json is missing homography_pixel_to_robot.")
         return None
 
 
@@ -60,8 +59,10 @@ def load_calibration():
 # =========================================================
 
 def pixel_to_robot_xy(pixel_pt, H):
-    pixel = np.array([[[float(pixel_pt[0]), float(pixel_pt[1])]]],
-                     dtype=np.float32)
+    pixel = np.array(
+        [[[float(pixel_pt[0]), float(pixel_pt[1])]]],
+        dtype=np.float32
+    )
 
     robot_xy = cv2.perspectiveTransform(pixel, H)[0][0]
 
@@ -130,7 +131,7 @@ def order_box_points(box):
     top = sorted_y[:2][np.argsort(sorted_y[:2, 0])]
     bottom = sorted_y[2:][np.argsort(sorted_y[2:, 0])]
 
-    # Return TL, TR, BR, BL
+    # TL, TR, BR, BL
     return np.array([top[0], top[1], bottom[1], bottom[0]],
                     dtype=np.float32)
 
@@ -161,7 +162,7 @@ def detect_skin(frame, H):
     )
 
     if not contours:
-        print("No contours found.")
+        print("[ERROR] No contours found.")
         return output, mask, None
 
     valid = [
@@ -175,7 +176,7 @@ def detect_skin(frame, H):
             reverse=True
         )[:5]
 
-        print(f"No contours in area range {MIN_AREA}–{MAX_AREA}.")
+        print(f"[ERROR] No contours in area range {MIN_AREA}–{MAX_AREA}.")
         print(f"Top contour areas: {[f'{a:.0f}' for a in areas]}")
 
         return output, mask, None
@@ -281,56 +282,37 @@ def detect_skin(frame, H):
         "corners_robot_xy_mm": corners_robot_xy
     }
 
-    print("\nFake skin detected!")
+    print("\n[OK] Fake skin detected")
     print(f"Area: {area:.0f}px")
     print(f"Angle: {angle:.1f} deg")
-    print(f"Center px: {center_px}")
+    print(f"Center pixel: {center_px}")
     print(f"Center robot XY: X={center_robot_xy[0]:.3f}, Y={center_robot_xy[1]:.3f}")
 
     print("\nCorners:")
     for lbl in corner_labels:
         px = corners_px[lbl]
         xy = corners_robot_xy[lbl]
-        print(
-            f"{lbl}: pixel={px}  "
-            f"robot X={xy[0]:.3f}, Y={xy[1]:.3f}"
-        )
+        print(f"{lbl}: pixel={px} | robot X={xy[0]:.3f}, Y={xy[1]:.3f}")
 
     return output, mask, detection_info
 
 
 # =========================================================
-# SAVE RESULTS
+# SAVE JSON RESULTS
 # =========================================================
 
 def save_results(info):
     with open(OUTPUT_JSON, "w") as f:
         json.dump(info, f, indent=4)
 
-    with open(OUTPUT_TXT, "w") as f:
-        f.write("FAKE SKIN DETECTION RESULTS\n")
-        f.write("===========================\n\n")
-
-        f.write(f"Timestamp: {info['timestamp']}\n")
-        f.write(f"Method: {info['method']}\n\n")
-
-        f.write(f"Angle: {info['angle_deg']:.2f} deg\n")
-        f.write(f"Area: {info['area_px']:.0f} px\n")
-        f.write(f"Width: {info['width_px']:.2f} px\n")
-        f.write(f"Height: {info['height_px']:.2f} px\n\n")
-
-        f.write("Center:\n")
-        f.write(f"  Pixel: {info['center_px']}\n")
-        f.write(f"  Robot XY mm: {info['center_robot_xy_mm']}\n\n")
-
-        f.write("Corners:\n")
-        for lbl in ["TL", "TR", "BR", "BL"]:
-            f.write(f"  {lbl}:\n")
-            f.write(f"    Pixel: {info['corners_px'][lbl]}\n")
-            f.write(f"    Robot XY mm: {info['corners_robot_xy_mm'][lbl]}\n")
-
-    print(f"\nSaved {OUTPUT_JSON}")
-    print(f"Saved {OUTPUT_TXT}")
+    print(f"\n[OK] Saved JSON file: {OUTPUT_JSON}")
+    print("JSON contains:")
+    print("  - center_px")
+    print("  - center_robot_xy_mm")
+    print("  - corners_px")
+    print("  - corners_robot_xy_mm")
+    print("  - angle_deg")
+    print("  - area_px")
 
 
 # =========================================================
@@ -347,21 +329,17 @@ def process_frame(frame, H):
     cv2.imwrite(OUTPUT_IMAGE, annotated)
     cv2.imwrite(OUTPUT_MASK, mask)
 
-    print(f"\nSaved {OUTPUT_IMAGE}")
-    print(f"Saved {OUTPUT_MASK}")
+    print(f"\n[OK] Saved image: {OUTPUT_IMAGE}")
+    print(f"[OK] Saved mask: {OUTPUT_MASK}")
 
     if info is None:
-        print("\nSkin not detected.")
+        print("\n[ERROR] Skin not detected.")
         print("Press T to open HSV tuner and adjust sliders.")
         return
 
     save_results(info)
 
     print("\nDone.")
-    print(f"  {OUTPUT_IMAGE}")
-    print(f"  {OUTPUT_MASK}")
-    print(f"  {OUTPUT_JSON}")
-    print(f"  {OUTPUT_TXT}")
 
 
 # =========================================================
@@ -415,9 +393,9 @@ def main():
     print("\n" + "=" * 60)
     print(" FAKE SKIN DETECTION WITH ROBOT XY COORDINATES")
     print("=" * 60)
-    print("This version uses calibration.json.")
-    print("It does NOT create a JBI file.")
-    print("It only detects fake skin and outputs robot X/Y coordinates.\n")
+    print("Uses calibration.json")
+    print("Does NOT create a JBI file")
+    print("Press SPACE to detect and save JSON\n")
 
     H = load_calibration()
 
@@ -514,7 +492,7 @@ def main():
 
         cv2.putText(
             preview,
-            "SPACE=detect | T=HSV tuner | Q=quit",
+            "SPACE=detect/save JSON | T=HSV tuner | Q=quit",
             (20, CAMERA_HEIGHT - 20),
             cv2.FONT_HERSHEY_SIMPLEX,
             0.6,
