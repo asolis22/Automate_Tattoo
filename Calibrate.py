@@ -1,16 +1,17 @@
 import cv2
 import numpy as np
-from picamera2 import Picamera2
+import json
 import time
+from picamera2 import Picamera2
 
 # ==============================
-# 9 ROBOT CALIBRATION POINTS
-# Click these in row order:
+# CLICK ORDER:
 #
 # P1  P2  P3
 # P4  P5  P6
 # P7  P8  P9
 # ==============================
+
 robot_points = np.array([
     [266.281, -103.412],  # P1
     [264.545,   24.239],  # P2
@@ -48,7 +49,8 @@ def draw_points(frame):
 
     for i, pt in enumerate(clicked_points):
         x, y = pt
-        cv2.circle(display, (x, y), 7, (0, 255, 0), -1)
+
+        cv2.circle(display, (x, y), 8, (0, 255, 0), -1)
         cv2.putText(
             display,
             point_labels[i],
@@ -59,8 +61,8 @@ def draw_points(frame):
             2
         )
 
-    instructions = [
-        "Click points in this order:",
+    lines = [
+        "Click points in order:",
         "P1 P2 P3",
         "P4 P5 P6",
         "P7 P8 P9",
@@ -68,7 +70,7 @@ def draw_points(frame):
     ]
 
     y = 30
-    for line in instructions:
+    for line in lines:
         cv2.putText(
             display,
             line,
@@ -83,9 +85,9 @@ def draw_points(frame):
     return display
 
 
-def save_homography():
+def save_calibration():
     if len(clicked_points) != 9:
-        print("[ERROR] Click all 9 points first.")
+        print("[ERROR] You must click all 9 points first.")
         return
 
     image_points = np.array(clicked_points, dtype=np.float32)
@@ -100,22 +102,39 @@ def save_homography():
         print("[ERROR] Homography failed.")
         return
 
-    np.save("homography_pixel_to_robot.npy", H)
+    calibration_data = {
+        "description": "Pixel to robot XY homography calibration",
+        "click_order": [
+            "P1", "P2", "P3",
+            "P4", "P5", "P6",
+            "P7", "P8", "P9"
+        ],
+        "image_points_pixels": image_points.tolist(),
+        "robot_points_mm": robot_points.tolist(),
+        "homography_pixel_to_robot": H.tolist()
+    }
+
+    with open("calibration.json", "w") as f:
+        json.dump(calibration_data, f, indent=4)
 
     print("\n=================================")
     print("CALIBRATION SAVED")
     print("=================================")
-    print("Saved as: homography_pixel_to_robot.npy")
+    print("Saved as: calibration.json")
+
     print("\nHomography matrix:")
     print(H)
 
     print("\nCalibration test:")
+    total_error = 0
+
     for i, pt in enumerate(image_points):
         pixel = np.array([[[pt[0], pt[1]]]], dtype=np.float32)
         predicted = cv2.perspectiveTransform(pixel, H)[0][0]
         expected = robot_points[i]
 
         error = np.linalg.norm(predicted - expected)
+        total_error += error
 
         print(
             f"{point_labels[i]} | "
@@ -124,11 +143,8 @@ def save_homography():
             f"Error={error:.3f} mm"
         )
 
-
-def pixel_to_robot(x, y, H):
-    pixel = np.array([[[x, y]]], dtype=np.float32)
-    robot_xy = cv2.perspectiveTransform(pixel, H)[0][0]
-    return robot_xy[0], robot_xy[1]
+    avg_error = total_error / len(image_points)
+    print(f"\nAverage calibration error: {avg_error:.3f} mm")
 
 
 def main():
@@ -137,7 +153,10 @@ def main():
     picam2 = Picamera2()
 
     config = picam2.create_preview_configuration(
-        main={"size": (1280, 720), "format": "RGB888"}
+        main={
+            "size": (1280, 720),
+            "format": "RGB888"
+        }
     )
 
     picam2.configure(config)
@@ -145,28 +164,29 @@ def main():
 
     time.sleep(2)
 
-    window_name = "9 Point Homography Calibration"
+    window_name = "9 Point Robot Calibration"
 
     cv2.namedWindow(window_name)
     cv2.setMouseCallback(window_name, mouse_callback)
 
     print("\n=================================")
-    print("9 POINT HOMOGRAPHY CALIBRATION")
+    print("9 POINT ROBOT CALIBRATION")
     print("=================================")
-    print("Click in this order:")
+    print("Click points in this order:")
     print("P1 P2 P3")
     print("P4 P5 P6")
     print("P7 P8 P9")
     print("\nControls:")
-    print("S = save calibration")
-    print("R = reset")
+    print("S = save calibration.json")
+    print("R = reset clicked points")
     print("Q = quit")
     print("=================================\n")
 
     while True:
         frame = picam2.capture_array()
 
-        # Picamera2 gives RGB, OpenCV uses BGR
+        # Picamera2 gives RGB.
+        # OpenCV displays BGR.
         frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
 
         display = draw_points(frame_bgr)
@@ -180,10 +200,10 @@ def main():
 
         elif key == ord("r"):
             clicked_points = []
-            print("[INFO] Reset. Click again starting at P1.")
+            print("[INFO] Reset clicked points. Start again from P1.")
 
         elif key == ord("s"):
-            save_homography()
+            save_calibration()
 
     picam2.stop()
     cv2.destroyAllWindows()
