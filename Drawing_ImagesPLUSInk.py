@@ -36,36 +36,68 @@ TL, TR, BR, BL, CENTER = load_skin_corners()
 APPROACH_POINT = CENTER.copy()
 
 # =========================================================
+# MEASURED STRAIGHT VERTICAL LIFT OFFSET
+# Measured by jogging 10mm straight up in Cartesian Z
+# from skin surface. All 6 joints measured directly.
+#
+# Touching skin: S=1039  L=37417 U=-22099 R=964  B=-29726 T=-1072
+# 10mm above:    S=1039  L=35864 U=-21890 R=935  B=-30823 T=-1052
+#
+# Difference per 10mm Z lift:
+#   dS=0  dL=-1553  dU=+209  dR=-29  dB=-1097  dT=+20
+#
+# To lift by any amount, scale these offsets linearly.
+# LIFT_MM = 10.0 uses the offsets as measured.
+# LIFT_MM = 5.0 uses half the offsets.
+# =========================================================
+
+LIFT_MM = 10.0
+
+# Raw offsets measured for exactly 10mm of Z lift
+LIFT_10MM_OFFSET = [
+    0,      # S — no change
+    -1553,  # L
+    +209,   # U
+    -29,    # R
+    -1097,  # B
+    +20,    # T
+]
+
+
+def lift_pulse(draw_pulse, lift_mm=LIFT_MM):
+    """
+    Compute the pulse position that is lift_mm above
+    draw_pulse in Cartesian Z, using real measured
+    joint offsets from a straight vertical Z jog.
+    Scales linearly from the 10mm reference measurement.
+    """
+    scale  = lift_mm / 10.0
+    lifted = list(draw_pulse)
+    for j in range(6):
+        lifted[j] = int(round(
+            draw_pulse[j] + LIFT_10MM_OFFSET[j] * scale))
+    return lifted
+
+
+# =========================================================
 # INK DIP POSITIONS
 # =========================================================
 
 INK_HOVER = [-41004, 59868,  1099, 4900, -34257, 16705]
 INK_DIP   = [-41004, 64596,  1380, 5213, -31659, 16463]
 
-# Raise U before traveling TO ink to clear table
-INK_PRELIFT_U    = 3000
-# Raise U after dipping to clear platform on return
-INK_CLEAR_LIFT_U = 8000
-
-# Redip every 50 seconds
+INK_PRELIFT_U      = 3000
+INK_CLEAR_LIFT_U   = 8000
 REDIP_INTERVAL_SEC = 50.0
 
 # =========================================================
 # DRAWING SIZE CONTROL
-# Set exact width and height of the tattoo in mm.
-# The image will be scaled to fit this box while
-# preserving aspect ratio to avoid distortion.
-# Skin is approximately 159mm wide x 141mm tall.
 # =========================================================
 
-TATTOO_WIDTH_MM  = 70.0   # desired tattoo width in mm
-TATTOO_HEIGHT_MM = 70.0   # desired tattoo height in mm
-
-SKIN_WIDTH_MM  = 159.0    # physical skin width in mm
-SKIN_HEIGHT_MM = 141.0    # physical skin height in mm
-
-# These become the UV scale factors
-# image fills this fraction of the skin
+TATTOO_WIDTH_MM  = 70.0
+TATTOO_HEIGHT_MM = 70.0
+SKIN_WIDTH_MM    = 159.0
+SKIN_HEIGHT_MM   = 141.0
 SCALE_U = TATTOO_WIDTH_MM  / SKIN_WIDTH_MM
 SCALE_V = TATTOO_HEIGHT_MM / SKIN_HEIGHT_MM
 
@@ -78,15 +110,6 @@ JOB_FILE           = "CONTOUR2.JBI"
 MOVEJ_SPEED        = 0.78
 MOVL_SPEED         = 8.0
 MOVL_SPEED_INK     = 11.7
-
-# J3 lift for pen-up between contours
-LIFT_J3            = 1400
-
-# APPROACH_LIFT_J3 is a BIGGER lift used when approaching
-# the skin from above — prevents dragging lines
-# Must be larger than LIFT_J3
-APPROACH_LIFT_J3   = 2000
-
 MIN_CONTOUR_AREA   = 30
 POINTS_PER_CONTOUR = 60
 AIR_ONLY_MODE      = False
@@ -272,9 +295,6 @@ def extract_contours(mask, min_area=30,
 
 # =========================================================
 # MAP CONTOURS TO SKIN CORNERS
-# Preserves image aspect ratio to prevent distortion.
-# Image is scaled to fit within TATTOO_WIDTH_MM x
-# TATTOO_HEIGHT_MM while maintaining proportions.
 # =========================================================
 
 def bilinear_interp(u, v, tl, tr, br, bl):
@@ -295,25 +315,19 @@ def contours_to_skin_pulses(contours):
     img_w = max(max_x - min_x, 1.0)
     img_h = max(max_y - min_y, 1.0)
 
-    # Preserve aspect ratio — scale image to fit within
-    # TATTOO_WIDTH_MM x TATTOO_HEIGHT_MM box
     img_aspect    = img_w / img_h
     tattoo_aspect = TATTOO_WIDTH_MM / TATTOO_HEIGHT_MM
 
     if img_aspect > tattoo_aspect:
-        # Image is wider — fit to width, letterbox height
         actual_scale_u = SCALE_U
         actual_scale_v = SCALE_U / img_aspect * \
                          (SKIN_WIDTH_MM / SKIN_HEIGHT_MM)
     else:
-        # Image is taller — fit to height, letterbox width
         actual_scale_v = SCALE_V
         actual_scale_u = SCALE_V * img_aspect * \
                          (SKIN_HEIGHT_MM / SKIN_WIDTH_MM)
 
     print(f"\nImage aspect ratio: {img_aspect:.3f}")
-    print(f"Scale U: {actual_scale_u:.4f}  "
-          f"Scale V: {actual_scale_v:.4f}")
     print(f"Effective tattoo size: "
           f"{actual_scale_u * SKIN_WIDTH_MM:.1f}mm x "
           f"{actual_scale_v * SKIN_HEIGHT_MM:.1f}mm")
@@ -328,7 +342,6 @@ def contours_to_skin_pulses(contours):
             u = (x - min_x) / img_w
             v = (y - min_y) / img_h
 
-            # Scale around center preserving aspect ratio
             u = 0.5 + (u - 0.5) * actual_scale_u
             v = 0.5 + (v - 0.5) * actual_scale_v
 
@@ -454,11 +467,6 @@ def save_point_mapping(
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("Point Mapping: Image -> Skin Pulse Space\n")
         f.write("=" * 78 + "\n\n")
-        f.write("Skin corners used:\n")
-        f.write(f"  TL: {TL.astype(int).tolist()}\n")
-        f.write(f"  TR: {TR.astype(int).tolist()}\n")
-        f.write(f"  BR: {BR.astype(int).tolist()}\n")
-        f.write(f"  BL: {BL.astype(int).tolist()}\n\n")
         for item in mapping:
             f.write(
                 f"Global Point {item['global_index']}\n")
@@ -479,83 +487,49 @@ def save_point_mapping(
 
 
 # =========================================================
-# LIFT HELPERS
-# Two lift levels:
-#   LIFT_J3          — small lift between draw points
-#   APPROACH_LIFT_J3 — big lift when approaching skin
-#                      from above to prevent drag lines
-# =========================================================
-
-def make_lifted_pulse_point(draw_pulse):
-    """Small lift — used between contour points."""
-    lifted    = list(draw_pulse)
-    lifted[2] += LIFT_J3
-    return lifted
-
-
-def make_approach_pulse_point(draw_pulse):
-    """
-    Big lift — used when approaching skin from above.
-    Robot comes straight down to draw point from height
-    preventing diagonal drag lines on the skin.
-    """
-    lifted    = list(draw_pulse)
-    lifted[2] += APPROACH_LIFT_J3
-    return lifted
-
-
-# =========================================================
-# INK DIP SEQUENCE
+# INK DIP SEQUENCE — unchanged from working version
 # =========================================================
 
 def insert_ink_dip(all_points, instructions):
-    """
-    Full ink dip sequence:
-    prelift → hover → dip → wait 2s → hover → clear lift
-    """
+    def add(p):
+        idx = len(all_points)
+        all_points.append([int(x) for x in p])
+        return idx
 
-    # 0. Pre-lift — raise U before traveling to ink
-    prelift_pulse    = list(INK_HOVER)
-    prelift_pulse[2] += INK_PRELIFT_U
-    prelift_idx = len(all_points)
-    all_points.append(prelift_pulse)
+    # 0. Pre-lift
+    prelift    = list(INK_HOVER)
+    prelift[2] += INK_PRELIFT_U
     instructions.append(
-        f"MOVJ C{prelift_idx:05d} VJ={MOVEJ_SPEED:.2f}")
+        f"MOVJ C{add(prelift):05d} VJ={MOVEJ_SPEED:.2f}")
 
-    # 1. Move to hover above ink jar
-    hover_idx = len(all_points)
-    all_points.append(list(INK_HOVER))
+    # 1. Hover
     instructions.append(
-        f"MOVJ C{hover_idx:05d} VJ={MOVEJ_SPEED:.2f}")
+        f"MOVJ C{add(INK_HOVER):05d} VJ={MOVEJ_SPEED:.2f}")
 
-    # 2. Dip into ink
-    dip_idx = len(all_points)
-    all_points.append(list(INK_DIP))
+    # 2. Dip
     instructions.append(
-        f"MOVL C{dip_idx:05d} V={MOVL_SPEED_INK:.1f}")
+        f"MOVL C{add(INK_DIP):05d} V={MOVL_SPEED_INK:.1f}")
 
-    # 3. Wait 2 seconds while submerged
+    # 3. Wait 2 seconds
     instructions.append("TIMER T=2.00")
 
-    # 4. Retract back to hover
-    retract_idx = len(all_points)
-    all_points.append(list(INK_HOVER))
+    # 4. Retract to hover
     instructions.append(
-        f"MOVL C{retract_idx:05d} V={MOVL_SPEED_INK:.1f}")
+        f"MOVL C{add(INK_HOVER):05d} V={MOVL_SPEED_INK:.1f}")
 
-    # 5. Raise higher to clear platform before moving to skin
-    clear_pulse    = list(INK_HOVER)
-    clear_pulse[2] += INK_CLEAR_LIFT_U
-    clear_idx = len(all_points)
-    all_points.append(clear_pulse)
+    # 5. Clear lift
+    clear    = list(INK_HOVER)
+    clear[2] += INK_CLEAR_LIFT_U
     instructions.append(
-        f"MOVJ C{clear_idx:05d} VJ={MOVEJ_SPEED:.2f}")
+        f"MOVJ C{add(clear):05d} VJ={MOVEJ_SPEED:.2f}")
 
-    print(f"  [INK DIP] inserted at point {prelift_idx}")
+    print(f"  [INK DIP] inserted")
 
 
 # =========================================================
 # JBI WRITER
+# Uses real measured lift offsets for straight vertical
+# approach and retract — no angled motion
 # =========================================================
 
 def write_jbi_contour_trace(mapped_contours,
@@ -564,24 +538,22 @@ def write_jbi_contour_trace(mapped_contours,
     all_points   = []
     instructions = []
 
-    def add_point(p):
+    def add(p):
         idx = len(all_points)
-        all_points.append(p)
+        all_points.append([int(x) for x in p])
         return idx
 
-    # ── Initial ink dip ───────────────────────────────────
+    # Initial ink dip
     print("Inserting initial ink dip...")
     insert_ink_dip(all_points, instructions)
 
-    # ── Approach skin center from high above ─────────────
-    approach_high = make_approach_pulse_point(
+    # Approach lifted center above skin
+    center_lifted = lift_pulse(
         APPROACH_POINT.astype(int).tolist())
-    approach_high_idx = add_point(approach_high)
     instructions.append(
-        f"MOVJ C{approach_high_idx:05d} "
+        f"MOVJ C{add(center_lifted):05d} "
         f"VJ={MOVEJ_SPEED:.2f}")
 
-    # ── Draw contours with timed redips ──────────────────
     elapsed_since_dip = 0.0
     total_dips        = 1
     total_draw_pts    = 0
@@ -590,73 +562,65 @@ def write_jbi_contour_trace(mapped_contours,
         if len(contour) < 2:
             continue
 
-        start = contour[0]
-        end   = contour[-1]
+        first = contour[0]
+        last  = contour[-1]
 
-        # Use APPROACH lift (big) for coming down to start
-        approach_start = make_approach_pulse_point(start)
-        # Use regular lift (small) for pen-up between points
-        lifted_end     = make_lifted_pulse_point(end)
+        # Lifted positions above first and last points
+        first_lifted = lift_pulse(first)
+        last_lifted  = lift_pulse(last)
 
         if AIR_ONLY_MODE:
-            contour = [make_lifted_pulse_point(p)
-                       for p in contour]
+            contour = [lift_pulse(p) for p in contour]
 
-        # Come straight down onto first point of contour
-        # approach_start → start = straight vertical drop
-        # This prevents diagonal drag lines
-        ap_idx = add_point(approach_start)
-        s_idx  = add_point(contour[0])
+        # MOVJ to above contour start
         instructions.append(
-            f"MOVJ C{ap_idx:05d} VJ={MOVEJ_SPEED:.2f}")
-        instructions.append(
-            f"MOVL C{s_idx:05d} V={MOVL_SPEED:.1f}")
+            f"MOVJ C{add(first_lifted):05d} "
+            f"VJ={MOVEJ_SPEED:.2f}")
 
-        # Draw each point in the contour
+        # MOVL straight down onto first draw point
+        instructions.append(
+            f"MOVL C{add(first):05d} "
+            f"V={MOVL_SPEED:.1f}")
+
+        # Draw contour
         for p in contour[1:]:
-
-            # Check if time to redip
             elapsed_since_dip += SECONDS_PER_DRAW_POINT
             if elapsed_since_dip >= REDIP_INTERVAL_SEC:
 
-                # Lift straight up before leaving
-                current_approach = \
-                    make_approach_pulse_point(p)
-                lift_idx = add_point(
-                    make_lifted_pulse_point(p))
+                # MOVL straight up from current point
+                p_lifted = lift_pulse(p)
                 instructions.append(
-                    f"MOVL C{lift_idx:05d} "
+                    f"MOVL C{add(p_lifted):05d} "
                     f"V={MOVL_SPEED:.1f}")
 
-                # Do the ink dip
+                # Ink dip
                 insert_ink_dip(all_points, instructions)
                 total_dips       += 1
                 elapsed_since_dip = 0.0
 
-                # Come straight back down onto resume point
-                ap_resume = add_point(
-                    make_approach_pulse_point(p))
-                resume_idx = add_point(p)
+                # MOVJ back above resume point
                 instructions.append(
-                    f"MOVJ C{ap_resume:05d} "
+                    f"MOVJ C{add(p_lifted):05d} "
                     f"VJ={MOVEJ_SPEED:.2f}")
+
+                # MOVL straight down to resume
                 instructions.append(
-                    f"MOVL C{resume_idx:05d} "
+                    f"MOVL C{add(p):05d} "
                     f"V={MOVL_SPEED:.1f}")
+
             else:
-                idx = add_point(p)
                 instructions.append(
-                    f"MOVL C{idx:05d} "
+                    f"MOVL C{add(p):05d} "
                     f"V={MOVL_SPEED:.1f}")
 
             total_draw_pts += 1
 
-        # Lift straight up at end of contour
-        le_idx = add_point(lifted_end)
+        # MOVL straight up at end of contour
         instructions.append(
-            f"MOVL C{le_idx:05d} V={MOVL_SPEED:.1f}")
+            f"MOVL C{add(last_lifted):05d} "
+            f"V={MOVL_SPEED:.1f}")
 
-    # ── Build JBI ─────────────────────────────────────────
+    # Build JBI
     lines = [
         "/JOB",
         f"//NAME {job_name}",
@@ -672,7 +636,7 @@ def write_jbi_contour_trace(mapped_contours,
             f"{p[0]},{p[1]},{p[2]},{p[3]},{p[4]},{p[5]}")
     lines += [
         "//INST",
-        f"///DATE 2026/04/29 10:00",
+        f"///DATE 2026/04/30 10:00",
         "///ATTR SC,RW",
         "///GROUP1 RB1",
         "NOP",
@@ -685,15 +649,15 @@ def write_jbi_contour_trace(mapped_contours,
         f.write("\r\n".join(lines) + "\r\n")
 
     print(f"\nSaved JBI: {filename}")
-    print(f"Total points:     {len(all_points)}")
-    print(f"Total draw pts:   {total_draw_pts}")
-    print(f"Total ink dips:   {total_dips}")
-    print(f"Redip interval:   {REDIP_INTERVAL_SEC}s")
-    print(f"Tattoo size:      "
+    print(f"Total points:    {len(all_points)}")
+    print(f"Total draw pts:  {total_draw_pts}")
+    print(f"Total ink dips:  {total_dips}")
+    print(f"Lift height:     {LIFT_MM}mm")
+    print(f"Lift offsets:    {LIFT_10MM_OFFSET}")
+    print(f"Redip interval:  {REDIP_INTERVAL_SEC}s")
+    print(f"Tattoo size:     "
           f"{TATTOO_WIDTH_MM}mm x {TATTOO_HEIGHT_MM}mm")
-    print(f"Approach lift J3: {APPROACH_LIFT_J3} pulses")
-    print(f"Draw lift J3:     {LIFT_J3} pulses")
-    print(f"Est. draw time:   "
+    print(f"Est. draw time:  "
           f"{total_draw_pts * SECONDS_PER_DRAW_POINT:.1f}s")
 
 
@@ -746,17 +710,16 @@ def main():
     print("  point_mapping_contours.txt")
     print(f"  {JOB_FILE}")
     print(f"\nSettings:")
-    print(f"  Tattoo size:      "
+    print(f"  Tattoo size:    "
           f"{TATTOO_WIDTH_MM}mm x {TATTOO_HEIGHT_MM}mm")
-    print(f"  AIR_ONLY_MODE:    {AIR_ONLY_MODE}")
-    print(f"  Points/contour:   {points_per_contour}")
-    print(f"  Approach lift J3: {APPROACH_LIFT_J3}")
-    print(f"  Draw lift J3:     {LIFT_J3}")
-    print(f"  Redip interval:   {REDIP_INTERVAL_SEC}s")
-    print(f"  Draw speed:       {MOVL_SPEED} mm/s")
-    print(f"  Ink dip speed:    {MOVL_SPEED_INK} mm/s")
-    print(f"  Pre-lift U:       +{INK_PRELIFT_U} pulses")
-    print(f"  Clear lift U:     +{INK_CLEAR_LIFT_U} pulses")
+    print(f"  Lift height:    {LIFT_MM}mm")
+    print(f"  AIR_ONLY_MODE:  {AIR_ONLY_MODE}")
+    print(f"  Points/contour: {points_per_contour}")
+    print(f"  Redip interval: {REDIP_INTERVAL_SEC}s")
+    print(f"  Draw speed:     {MOVL_SPEED} mm/s")
+    print(f"  Ink dip speed:  {MOVL_SPEED_INK} mm/s")
+    print(f"  Pre-lift U:     +{INK_PRELIFT_U} pulses")
+    print(f"  Clear lift U:   +{INK_CLEAR_LIFT_U} pulses")
 
 
 if __name__ == "__main__":
