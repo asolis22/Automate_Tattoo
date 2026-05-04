@@ -88,14 +88,14 @@ INK_DIP   = [-41004, 64596,  1380, 5213, -31659, 16463]
 
 INK_PRELIFT_U      = 3000
 INK_CLEAR_LIFT_U   = 8000
-REDIP_INTERVAL_SEC = 50.0
+REDIP_INTERVAL_SEC = 180.0
 
 # =========================================================
 # DRAWING SIZE CONTROL
 # =========================================================
 
-TATTOO_WIDTH_MM  = 70.0
-TATTOO_HEIGHT_MM = 70.0
+TATTOO_WIDTH_MM  = 120.0
+TATTOO_HEIGHT_MM = 120.0
 SKIN_WIDTH_MM    = 159.0
 SKIN_HEIGHT_MM   = 141.0
 SCALE_U = TATTOO_WIDTH_MM  / SKIN_WIDTH_MM
@@ -107,9 +107,9 @@ SCALE_V = TATTOO_HEIGHT_MM / SKIN_HEIGHT_MM
 
 JOB_NAME           = "CONTOUR2"
 JOB_FILE           = "CONTOUR2.JBI"
-MOVEJ_SPEED        = 0.78
-MOVL_SPEED         = 8.0
-MOVL_SPEED_INK     = 11.7
+MOVEJ_SPEED        = 1
+MOVL_SPEED         = 20.0
+MOVL_SPEED_INK     = 50.7
 MIN_CONTOUR_AREA   = 30
 POINTS_PER_CONTOUR = 60
 AIR_ONLY_MODE      = False
@@ -511,7 +511,7 @@ def insert_ink_dip(all_points, instructions):
         f"MOVL C{add(INK_DIP):05d} V={MOVL_SPEED_INK:.1f}")
 
     # 3. Wait 2 seconds
-    instructions.append("TIMER T=2.00")
+    instructions.append("TIMER T=1.00")
 
     # 4. Retract to hover
     instructions.append(
