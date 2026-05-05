@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path
 from datetime import datetime
+from skimage.morphology import skeletonize
 
 # =========================================================
 # 9-POINT CALIBRATION GRID
@@ -49,9 +50,6 @@ SKIN_CORNER_NAMES = ["TL", "TR", "BR", "BL"]
 TATTOO_JOB_FILE  = "CONTOUR2.JBI"
 TATTOO_JOB_NAME  = "CONTOUR2"
 
-# Measured straight vertical lift offsets
-# Touching: S=1039 L=37417 U=-22099 R=964  B=-29726 T=-1072
-# 10mm up:  S=1039 L=35864 U=-21890 R=935  B=-30823 T=-1052
 LIFT_MM = 10.0
 LIFT_10MM_OFFSET = [
     0,      # S
@@ -66,24 +64,27 @@ INK_HOVER          = [-41004, 59868,  1099, 4900, -34257, 16705]
 INK_DIP            = [-41004, 64596,  1380, 5213, -31659, 16463]
 INK_PRELIFT_U      = 3000
 INK_CLEAR_LIFT_U   = 8000
-REDIP_INTERVAL_SEC = 180.0
+REDIP_INTERVAL_SEC = 50.0
 
-TATTOO_WIDTH_MM  = 120.0
-TATTOO_HEIGHT_MM = 120.0
+TATTOO_WIDTH_MM  = 90.0
+TATTOO_HEIGHT_MM = 90.0
 SKIN_WIDTH_MM    = 159.0
 SKIN_HEIGHT_MM   = 141.0
 SCALE_U = TATTOO_WIDTH_MM  / SKIN_WIDTH_MM
 SCALE_V = TATTOO_HEIGHT_MM / SKIN_HEIGHT_MM
 
-MOVEJ_SPEED        = 1.0
-MOVL_SPEED         = 20.0
-MOVL_SPEED_INK     = 50.7
-MIN_CONTOUR_AREA   = 30
+MOVEJ_SPEED    = 1.0
+MOVL_SPEED     = 20.0
+MOVL_SPEED_INK = 50.7
+
+# Real draw speed for accurate redip timing
+REAL_DRAW_SPEED_MM_S   = 8.0
+AVG_POINT_SPACING_MM   = 2.5
+SECONDS_PER_DRAW_POINT = AVG_POINT_SPACING_MM / REAL_DRAW_SPEED_MM_S
+
+MIN_CONTOUR_AREA   = 5
 POINTS_PER_CONTOUR = 60
 AIR_ONLY_MODE      = False
-
-AVG_POINT_SPACING_MM   = 2.5
-SECONDS_PER_DRAW_POINT = AVG_POINT_SPACING_MM / MOVL_SPEED
 
 # =========================================================
 # CAMERA SETTINGS
@@ -105,7 +106,8 @@ def start_picamera():
               "size": (CAMERA_WIDTH, CAMERA_HEIGHT)}
     )
     picam2.configure(config)
-    picam2.set_controls({"AwbEnable": True, "AeEnable": True})
+    picam2.set_controls({"AwbEnable": True,
+                          "AeEnable": True})
     picam2.start()
     time.sleep(2)
     return picam2
@@ -189,6 +191,20 @@ def pixel_to_pulse(px, py):
                float(result_cart[1]), \
                float(result_cart[2])
     return pulse, X, Y, Z
+
+
+# =========================================================
+# LIFT PULSE
+# =========================================================
+
+def lift_pulse(draw_pulse, lift_mm=LIFT_MM):
+    scale  = lift_mm / 10.0
+    lifted = list(draw_pulse)
+    for j in range(6):
+        lifted[j] = int(round(
+            draw_pulse[j] +
+            LIFT_10MM_OFFSET[j] * scale))
+    return lifted
 
 
 # =========================================================
@@ -307,7 +323,7 @@ def run_skin_corner_click(picam2):
     clicked_skin_pts = []
 
     print("\n" + "="*55)
-    print("STEP 1: MARK SKIN CORNERS")
+    print("STEP 2: MARK SKIN CORNERS")
     print("="*55)
     print("\nClick the 4 corners of the fake skin:")
     print("  1=TOP-LEFT  2=TOP-RIGHT")
@@ -328,7 +344,8 @@ def run_skin_corner_click(picam2):
         display = frame.copy()
 
         if len(clicked_skin_pts) < 4:
-            name = SKIN_CORNER_NAMES[len(clicked_skin_pts)]
+            name = SKIN_CORNER_NAMES[
+                len(clicked_skin_pts)]
             cv2.putText(display,
                 f"Click {name} corner  "
                 f"({len(clicked_skin_pts)}/4)",
@@ -336,7 +353,7 @@ def run_skin_corner_click(picam2):
                 0.8, (0,255,255), 2)
         else:
             cv2.putText(display,
-                "All 4 corners! Press ENTER to continue.",
+                "All 4 done! Press ENTER to continue.",
                 (20, 40), cv2.FONT_HERSHEY_SIMPLEX,
                 0.75, (0,255,0), 2)
 
@@ -373,7 +390,7 @@ def run_skin_corner_click(picam2):
                 cv2.destroyWindow(win)
                 return clicked_skin_pts
             else:
-                print(f"  Need 4 corners — only "
+                print(f"  Need 4 — only "
                       f"{len(clicked_skin_pts)} so far.")
         elif key == ord("q"):
             cv2.destroyWindow(win)
@@ -439,7 +456,7 @@ def write_skin_jbi(pulse_corners,
 
 
 # =========================================================
-# PROCESS SKIN CORNERS → skin_corners.json + SkinDetect.JBI
+# PROCESS SKIN CORNERS
 # =========================================================
 
 def process_skin_corners(skin_pixels):
@@ -506,20 +523,6 @@ def load_skin_corners_for_tattoo(
 
 
 # =========================================================
-# LIFT PULSE — straight vertical Z
-# =========================================================
-
-def lift_pulse(draw_pulse, lift_mm=LIFT_MM):
-    scale  = lift_mm / 10.0
-    lifted = list(draw_pulse)
-    for j in range(6):
-        lifted[j] = int(round(
-            draw_pulse[j] +
-            LIFT_10MM_OFFSET[j] * scale))
-    return lifted
-
-
-# =========================================================
 # IMAGE CLEANUP
 # =========================================================
 
@@ -577,6 +580,14 @@ def method_v1b(cropped):
     return final_mask
 
 
+def apply_skeletonization(mask):
+    binary   = (mask == 0)
+    skeleton = skeletonize(binary)
+    result   = np.full_like(mask, 255)
+    result[skeleton] = 0
+    return result
+
+
 def stack_for_display(img1, img2):
     if len(img1.shape) == 2:
         img1 = cv2.cvtColor(img1, cv2.COLOR_GRAY2BGR)
@@ -603,29 +614,58 @@ def stack_for_display(img1, img2):
 
 
 # =========================================================
-# IMAGE SELECTION AND CONTOUR EXTRACTION
+# STEP 1: CAPTURE DESIGN FROM CAMERA
 # =========================================================
 
 def choose_design_and_extract(picam2):
     print("\n" + "="*55)
-    print("STEP 2: SELECT DESIGN IMAGE")
+    print("STEP 1: CAPTURE DESIGN")
     print("="*55)
-    print("\nCapturing image from camera...")
+    print("\nPoint camera at your drawing on paper.")
+    print("Press SPACE to capture, then draw a box")
+    print("around the design area.")
 
-    frame = get_frame(picam2)
-    cv2.imwrite("captured_design.png", frame)
-    print("Captured. Select the design area.")
-    print("Draw a box around the design, "
-          "then press ENTER or SPACE.")
+    win = "CAPTURE -- Press SPACE when ready"
+    cv2.namedWindow(win)
 
-    roi = cv2.selectROI("Select Design Area", frame,
+    while True:
+        frame = get_frame(picam2)
+        cv2.putText(frame,
+            "Press SPACE to capture photo of drawing",
+            (20, 40), cv2.FONT_HERSHEY_SIMPLEX,
+            0.7, (0,255,255), 2)
+        cv2.putText(frame,
+            "Q = cancel",
+            (20, CAMERA_HEIGHT-20),
+            cv2.FONT_HERSHEY_SIMPLEX, 0.6,
+            (255,255,255), 2)
+        cv2.imshow(win, frame)
+        key = cv2.waitKey(1) & 0xFF
+        if key == ord(" "):
+            captured = frame.copy()
+            break
+        elif key == ord("q"):
+            cv2.destroyWindow(win)
+            return None, None
+
+    cv2.destroyWindow(win)
+    cv2.imwrite("captured_design.png", captured)
+    print("Photo captured.")
+    print("Draw a box around the design area.")
+
+    roi = cv2.selectROI("Draw box around your design",
+                         captured,
                          showCrosshair=True,
                          fromCenter=False)
     cv2.destroyAllWindows()
 
     x, y, w, h = roi
-    cropped = frame[y:y+h, x:x+w] \
-              if (w > 0 and h > 0) else frame.copy()
+    if w == 0 or h == 0:
+        print("No ROI selected — using full image.")
+        x, y = 0, 0
+        cropped = captured.copy()
+    else:
+        cropped = captured[y:y+h, x:x+w]
 
     final1  = method_v1(cropped)
     final2  = method_v1b(cropped)
@@ -648,13 +688,21 @@ def choose_design_and_extract(picam2):
         raise RuntimeError(
             "No valid choice. Press 1 or 2.")
 
+    print("Applying skeletonization...")
+    chosen = apply_skeletonization(chosen)
+    cv2.imwrite("skeleton_mask.png", chosen)
+    print("Saved skeleton_mask.png")
+    print("Skeletonization done.")
+
     cv2.imwrite("chosen_mask.png", chosen)
-    print("Saved chosen_mask.png")
-    return chosen
+    return chosen, (x, y)
 
 
 # =========================================================
 # CONTOUR TRACING
+# Uses RETR_LIST to get all contours including inner
+# details (eyes, mouth, etc), then deduplicates any
+# near-identical contours to prevent double tracing.
 # =========================================================
 
 def resample_closed_contour(points,
@@ -666,8 +714,7 @@ def resample_closed_contour(points,
         points = np.vstack([points, points[0]])
 
     diffs       = np.diff(points, axis=0)
-    seg_lengths = np.sqrt(
-        (diffs**2).sum(axis=1))
+    seg_lengths = np.sqrt((diffs**2).sum(axis=1))
     cumulative  = np.concatenate(
         [[0.0], np.cumsum(seg_lengths)])
     total = cumulative[-1]
@@ -697,26 +744,65 @@ def resample_closed_contour(points,
     return sampled
 
 
-def extract_contours(mask, min_area=30,
+def extract_contours(mask, min_area=5,
                      points_per_contour=60):
     inv = cv2.bitwise_not(mask)
+
+    # RETR_LIST gets ALL contours including inner
+    # details like eyes, mouth, body lines
     contours, _ = cv2.findContours(
         inv, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
+
     if not contours:
         raise RuntimeError("No contours found.")
 
-    kept = []
+    kept         = []
+    kept_centers = []
+
     for contour in contours:
-        if cv2.contourArea(contour) >= min_area:
-            pts = contour[:,0,:].astype(np.float32)
-            pts = resample_closed_contour(
-                pts, target_points=points_per_contour)
-            if len(pts) >= 3:
-                kept.append(pts)
+        area = cv2.contourArea(contour)
+        if area < min_area:
+            continue
+
+        # Compute centroid
+        M = cv2.moments(contour)
+        if M["m00"] == 0:
+            continue
+        cx = M["m10"] / M["m00"]
+        cy = M["m01"] / M["m00"]
+
+        # Skip if very similar contour already kept
+        # Compares centroid distance and area ratio
+        # to catch duplicates from skeleton tracing
+        is_duplicate = False
+        for prev_cx, prev_cy, prev_area in kept_centers:
+            dist       = ((cx - prev_cx)**2 +
+                          (cy - prev_cy)**2) ** 0.5
+            area_ratio = (min(area, prev_area) /
+                          max(area, prev_area))
+            # Within 5px centroid AND 80% same area
+            # = duplicate
+            if dist < 3.0 and area_ratio > 0.9:
+                is_duplicate = True
+                break
+
+        if is_duplicate:
+            continue
+
+        pts = contour[:,0,:].astype(np.float32)
+        pts = resample_closed_contour(
+            pts, target_points=points_per_contour)
+
+        if len(pts) >= 3:
+            kept.append(pts)
+            kept_centers.append((cx, cy, area))
 
     if not kept:
         raise RuntimeError(
             "All contours too small.")
+
+    print(f"Found {len(kept)} contour(s) "
+          f"(min area={min_area})")
     return kept
 
 
@@ -942,6 +1028,12 @@ def write_tattoo_jbi(mapped_contours, approach_point,
             f"MOVL C{add(last_lifted):05d} "
             f"V={MOVL_SPEED:.1f}")
 
+    # Return to home when done
+    home_idx = add(ROBOT_HOME_PULSE)
+    instructions.append(
+        f"MOVJ C{home_idx:05d} VJ={MOVEJ_SPEED:.2f}")
+    print("  [HOME] added at end of job")
+
     lines = [
         "/JOB", f"//NAME {job_name}", "//POS",
         f"///NPOS {len(all_points)},0,0,0,0,0",
@@ -965,9 +1057,13 @@ def write_tattoo_jbi(mapped_contours, approach_point,
         f.write("\r\n".join(lines) + "\r\n")
 
     print(f"\nSaved: {filename}")
-    print(f"Total points:   {len(all_points)}")
-    print(f"Total draw pts: {total_draw_pts}")
-    print(f"Total ink dips: {total_dips}")
+    print(f"Total points:    {len(all_points)}")
+    print(f"Total draw pts:  {total_draw_pts}")
+    print(f"Total ink dips:  {total_dips}")
+    print(f"Redip interval:  {REDIP_INTERVAL_SEC}s")
+    print(f"Est. draw time:  "
+          f"{total_draw_pts * SECONDS_PER_DRAW_POINT:.1f}s")
+    print(f"Returns to home after completion.")
 
 
 # =========================================================
@@ -1010,7 +1106,6 @@ def main():
     print(f"  {SKIN_JOB_FILE}  — traces skin boundary")
     print(f"  {TATTOO_JOB_FILE} — draws the tattoo")
 
-    # Load calibration pixels if available
     if os.path.exists("cal_pixels.json"):
         with open("cal_pixels.json", "r") as f:
             cal_data = json.load(f)
@@ -1025,7 +1120,10 @@ def main():
     print("\nControls:")
     print("  C     = calibration mode (click P1-P9)")
     print("  SPACE = run full pipeline")
-    print("          (mark skin → select design → generate JBIs)")
+    print("          1. Capture photo of drawing")
+    print("          2. Select design area + 1 or 2")
+    print("          3. Mark skin corners")
+    print("          4. Generate both JBI files")
     print("  Q     = quit\n")
 
     while True:
@@ -1069,27 +1167,16 @@ def main():
                 print("\nCalibrate first! Press C.")
                 continue
 
-            # ── STEP 1: Mark skin corners ─────────────
-            skin_pixels = run_skin_corner_click(picam2)
-            if not skin_pixels:
-                print("Skin corner selection cancelled.")
-                continue
-
-            pulse_corners = process_skin_corners(
-                skin_pixels)
-
-            # Load skin corners for tattoo mapping
-            TL, TR, BR, BL, CENTER = \
-                load_skin_corners_for_tattoo()
-            approach_point = CENTER.astype(
-                int).tolist()
-
-            # ── STEP 2: Select design and trace ───────
+            # STEP 1: Capture design first
             try:
-                chosen_mask = choose_design_and_extract(
+                result = choose_design_and_extract(
                     picam2)
+                if result[0] is None:
+                    print("Cancelled.")
+                    continue
+                chosen_mask, roi_origin = result
             except RuntimeError as e:
-                print(f"Design selection error: {e}")
+                print(f"Error: {e}")
                 continue
 
             contours = extract_contours(
@@ -1099,13 +1186,26 @@ def main():
 
             save_debug_images(chosen_mask, contours)
 
+            # STEP 2: Mark skin corners
+            skin_pixels = run_skin_corner_click(picam2)
+            if not skin_pixels:
+                print("Cancelled.")
+                continue
+
+            pulse_corners = process_skin_corners(
+                skin_pixels)
+
+            TL, TR, BR, BL, CENTER = \
+                load_skin_corners_for_tattoo()
+            approach_point = CENTER.astype(int).tolist()
+
             mapped_contours = contours_to_skin_pulses(
                 contours, TL, TR, BR, BL)
 
             ordered_contours = reorder_contours_nearest(
                 mapped_contours, approach_point)
 
-            # ── STEP 3: Generate tattoo JBI ───────────
+            # STEP 3: Generate JBI files
             write_tattoo_jbi(ordered_contours,
                               approach_point)
 
@@ -1115,8 +1215,8 @@ def main():
             print(f"\n  {SKIN_JOB_FILE}")
             print(f"  {TATTOO_JOB_FILE}")
             print("\nLoad both onto the robot.")
-            print("Run SkinDetect first to verify skin")
-            print("position, then run CONTOUR2 to tattoo.")
+            print("Run SkinDetect first, then CONTOUR2.")
+            print("Robot returns home when CONTOUR2 finishes.")
 
         elif key == ord("q"):
             break
